@@ -31,7 +31,7 @@ class Ball {
 
 //Wall Objects
 class Wall {
-  constructor(x1, x2, y1, y2) {
+  constructor(x1, y1, x2, y2) {
     this.start = new Vector(x1, x2)
     this.end = new Vector(y1, y2)
     wallz.push(this)
@@ -64,6 +64,13 @@ class Vector {
   }
   multiply(m) {
     return new Vector(this.x * m, this.y * m)
+  }
+  drawVec(xStart, yStart, n, color) {
+    context.beginPath()
+    context.moveTo(xStart, yStart)
+    context.lineTo(xStart + this.x * n, yStart + this.y * n)
+    context.strokeStyle = color
+    context.stroke()
   }
 }
 
@@ -108,8 +115,22 @@ function deflectionBW(b1, w1) {
   b1.vel = b1.vel.add(normal.multiply(-vSepDiff))
 }
 //Object Creation//////////////////////////////////////////
+
 let ball1 = new Ball(ballX, ballY, 5, `black`, `grey`)
-let
+let canvasTop = new Wall(0, 0, canvas.clientWidth, 0)
+let canvasRight = new Wall(
+  canvas.clientWidth,
+  0,
+  canvas.clientWidth,
+  canvas.clientHeight
+)
+let canvasBottom = new Wall(
+  canvas.clientWidth,
+  canvas.clientHeight,
+  0,
+  canvas.clientHeight
+)
+let canvasLeft = new Wall(0, canvas.clientHeight, 0, canvas.clientHeight)
 
 //Animation Logic//////////////////////////////////////////
 
@@ -131,8 +152,6 @@ function animationLoop() {
         deflectionBW(ballz[index], w)
       }
     })
-
-
   })
   requestAnimationFrame(animationLoop)
 }
