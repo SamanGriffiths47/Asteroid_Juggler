@@ -7,6 +7,8 @@ let ballX = 100
 let ballY = 100
 let velocityv
 
+//Classes/////////////////////////////////
+
 //Ball Object Factory
 class Ball {
   constructor(x, y, r, stroke, fill) {
@@ -41,6 +43,9 @@ class Wall {
     context.strokeStyle = 'black'
     context.stroke()
   }
+  wallUnit() {
+    return this.end.subtract(this.start).unit()
+  }
 }
 // Vectors
 class Vector {
@@ -61,17 +66,75 @@ class Vector {
     return new Vector(this.x * m, this.y * m)
   }
 }
+
+//Game Physics Funcions/////////////////////////////////////////
+
+//WallCollision
+//finds closest point in the wall to the object on a collision course
+function closestPoint(b1, w1) {
+  let ballToWallStart = w1.start.subtract(b1.pos)
+  if (Vector.dot(w1.wallUnit(), ballToWallStart) > 0) {
+    return w1.start
+  }
+  let wallEndToBall = ball.pos.subtract(w1.end)
+  if (Vector.dot(w1.wallUnit(), wallEndToBall) > 0) {
+    return w1.end
+  }
+
+  let closestDist = Vector.dot(w1.wallUnit(), ballToWallStart)
+  let closestVect = w1.wallUnit().multiply(closestDist)
+  return w1.start.subtract(closestVect)
+}
+//detects collisions between the ball and walls
+function collisionDetection(b1, w1) {
+  let ballToCP = closestPoint(b1, w1).subtract(b1.pos)
+  if (ballToCP.magnitude() <= b1.r) {
+    return true
+  }
+}
+//pushes ball from wall by the same amount of penetration
+function penetrationCorrection(b1, w1) {
+  let penetrationVect = b1.pos.subtract(closestPoint(b1, w1))
+  b1.pos = b1.pos.add(
+    penetrationVect.unit().multiply(b1.r - penetrationVect.magnitude())
+  )
+}
+
+function deflectionBW(b1, w1) {
+  let normal = b1.pos.subtr(closestPoint(b1, w1)).unit()
+  let collisionVel = Vector.dot(b1.vel, normal)
+  let seperationVel = -collisionVel * b1.elasticity
+  let vSepDiff = collisionVel - seperationVel
+  b1.vel = b1.vel.add(normal.multiply(-vSepDiff))
+}
+//Object Creation//////////////////////////////////////////
+let ball1 = new Ball(ballX, ballY, 5, `black`, `grey`)
+let
+
+//Animation Logic//////////////////////////////////////////
+
 //Redraws canvas objects, creating the illusion of movement
 function animationLoop() {
+  //clears old frame, so new one can display smoothly
   context.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight)
-  ballz.forEach((b) => {
+  ballz.forEach((b, index) => {
+    //displays all balls pushed into the array
     b.createBall()
-  })
-  wallz.forEach((w) => {
-    w.drawWall()
+
+    wallz.forEach((w) => {
+      //displays all walls pushed into the array
+      w.drawWall()
+
+      //if collision detected, object will deflect
+      if (collisionDetection(ballz[index], w)) {
+        penetrationCorrection(ballz[index], w)
+        deflectionBW(ballz[index], w)
+      }
+    })
+
+
   })
   requestAnimationFrame(animationLoop)
 }
-let ball1 = new Ball(ballX, ballY, 5, `black`, `grey`)
 
 requestAnimationFrame(animationLoop)
