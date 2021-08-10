@@ -8,17 +8,23 @@ let yvel = null
 
 // canvas.width = 640 canvas.height = 480
 
-const equalMagnitude = () => {
-  let z = Math.random()
-  if (z < 0.5) {
-    z *= canvas.width / 2 - 20
+const equalMagnitude = (mag) => {
+  let x = Math.random()
+  if (x < 0.5) {
+    x *= mag - 1
   } else {
-    z *= -(canvas.width / 2 - 20)
+    x *= -mag - 1
   }
-  xvel = z
+  let y = Math.sqrt(mag ** 2 - x ** 2)
+  while (Number.isInteger(y) === false) {
+    equalMagnitude(mag)
+  }
+  xvel = x
+  yvel = y
 }
-equalMagnitude()
+equalMagnitude(2)
 console.log(xvel)
+console.log(yvel)
 class Vector {
   constructor(x, y) {
     this.x = x
