@@ -3,22 +3,22 @@ const context = canvas.getContext('2d')
 // let dx = 2
 // let dy = -2
 let ballz = []
-xvel = null
-yvel = null
+let xvel = null
+let yvel = null
 
 // canvas.width = 640 canvas.height = 480
 
-equalMagnitude = () => {
+const equalMagnitude = () => {
   let z = Math.random()
-  console.log(z)
   if (z < 0.5) {
     z *= canvas.width / 2 - 20
   } else {
     z *= -(canvas.width / 2 - 20)
   }
-  console.log(z)
+  xvel = z
 }
-
+equalMagnitude()
+console.log(xvel)
 class Vector {
   constructor(x, y) {
     this.x = x
