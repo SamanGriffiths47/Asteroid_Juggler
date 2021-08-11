@@ -1,6 +1,24 @@
+body {
+  display: grid;
+  grid-template: repeat(8, 1fr) / repeat(8, 1fr);
+
+  width: auto;
+  height: 810px;
+  background-image: url(./WOW.gif);
+  background-size: contain;
+  color: white;
+}
+header {
+  grid-area: 1/3/2/7;
+  -webkit-text-stroke: white 2px;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0);
+  font-size: 80px;
+}
 #canvas {
+  grid-area: 3/3/7/7;
+
   border: 1px solid blue;
   display: block;
   margin: 0 auto;
-  background: rgb(225, 236, 244);
+  background: rgba(218, 231, 255, 0.85);
 }
