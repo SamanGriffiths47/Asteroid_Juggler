@@ -91,7 +91,7 @@ noPenetration = (b1, b2) => {
   b2.position = b2.position.add(pen_res.multiply(-1))
 }
 //calculates the balls new velocity vectors after the collision
-ricochetEffect(b1, b2) {
+ricochetEffect = (b1, b2) => {
   //collision normal vector
   let normal = b1.position.subtract(b2.position).unit()
   //setting velocity to the angle of the normal vector at original magnitude
@@ -102,14 +102,14 @@ ricochetEffect(b1, b2) {
 
 //User Interface////////////////////////////////////////////////////////////////////////////////////
 //allows for keyboard manipulation of ball
-function keyDownHandler(e) {
+keyDownHandler = (e) => {
   if (e.key == 'Right' || e.key == 'ArrowRight' || e.key == 'd') {
     rightPressed = true
   } else if (e.key == 'Left' || e.key == 'ArrowLeft' || e.key == 'a') {
     leftPressed = true
   }
 }
-function keyUpHandler(e) {
+keyUpHandler = (e) => {
   if (e.key == 'Right' || e.key == 'ArrowRight' || e.key == 'd') {
     rightPressed = false
   } else if (e.key == 'Left' || e.key == 'ArrowLeft' || e.key == 'a') {
@@ -117,7 +117,7 @@ function keyUpHandler(e) {
   }
 }
 // function for mouse movement
-function mouseMoveHandler(e) {
+mouseMoveHandler = (e) => {
   let relativeX = e.clientX - canvas.offsetLeft
   if (relativeX > 0 && relativeX < canvas.width) {
     paddleX = relativeX - paddleWidth
@@ -221,12 +221,7 @@ class slowBall {
 //Ball Creation Funtions////////////////////////////////////////////////////////////////////////////
 let ball = new slowBall()
 let throwBall = setInterval(function () {
-  let counter = 0
   ball = new slowBall()
-  counter++
-  if (counter >= 1) {
-    clearInterval(throwBall)
-  }
 }, 5000)
 //Animation Function////////////////////////////////////////////////////////////////////////////////
 function draw() {
