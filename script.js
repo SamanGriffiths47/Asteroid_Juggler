@@ -1,57 +1,33 @@
 const canvas = document.getElementById('canvas')
 const context = canvas.getContext('2d')
-// let dx = 2
-// let dy = -2
+
 let ballz = []
-let xvel = null
-let yvel = null
 
 // canvas.width = 640 canvas.height = 480
 
-const equalMagnitude = (mag) => {
+function randomX(mag) {
   let x = Math.random()
   if (x < 0.5) {
-    x *= mag - 1
+    x *= mag - Math.random() * mag
   } else {
-    x *= -mag - 1
+    x *= -mag + Math.random() * mag
   }
+  return x
+}
+
+function randomY(x, mag) {
   let y = Math.sqrt(mag ** 2 - x ** 2)
-  while (Number.isInteger(y) === false) {
-    equalMagnitude(mag)
-  }
-  xvel = x
-  yvel = y
-}
-equalMagnitude(2)
-console.log(xvel)
-console.log(yvel)
-class Vector {
-  constructor(x, y) {
-    this.x = x
-    this.y = y
-  }
-
-  add(v) {
-    return new Vector(this.x + v.x, this.y + v.y)
-  }
-  subtract(v) {
-    return new Vector(this.x - v.x, this.y - v.y)
-  }
-  multiply(n) {
-    return new Vector(this.x * n, this.y * n)
-  }
-  magnitude() {
-    return Math.sqrt(this.x ** 2 + this.y ** 2)
-  }
+  return -y
 }
 
-class Ball {
+class MedBall {
   constructor() {
     this.r = 5
     this.x = canvas.width / 2
     this.y = canvas.height - 50
-    this.xVelocity = 2
-    this.yVelocity = -2
+    this.mag = 4
+    this.xVelocity = randomX(this.mag)
+    this.yVelocity = randomY(this.xVelocity, this.mag)
     ballz.push(this)
   }
 
@@ -83,7 +59,7 @@ class Ball {
   }
 }
 
-let ball1 = new Ball()
+let ball1 = new MedBall()
 
 function draw() {
   context.clearRect(0, 0, canvas.width, canvas.height)
