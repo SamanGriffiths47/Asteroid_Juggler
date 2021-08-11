@@ -1,10 +1,38 @@
 const canvas = document.getElementById('canvas')
 const context = canvas.getContext('2d')
-
-let ballz = []
-
+const ballz = []
+const ballFallz = []
+const paddleHeight = 10
+const paddleWidth = 75
+let paddleX = (canvas.width - paddleWidth) / 2
+let rightPressed = false
+let leftPressed = false
+const possibleBalls = {
+  a: 'a',
+  b: 'b',
+  c: 'c',
+  d: 'd',
+  e: 'e',
+  f: 'f',
+  g: 'g',
+  h: 'h',
+  i: 'i',
+  j: 'j',
+  k: 'k',
+  l: 'l',
+  m: 'm',
+  n: 'n',
+  o: 'o',
+  p: 'p',
+  q: 'q',
+  r: 'r'
+}
 // canvas.width = 640 canvas.height = 480
 
+//Global Functions///////////////////////////////////////////////
+
+//randomly generates initial x & y velocities
+//so all balls can start moving at different angles
 function randomX(mag) {
   let x = Math.random()
   if (x < 0.5) {
@@ -14,23 +42,111 @@ function randomX(mag) {
   }
   return x
 }
-
 function randomY(x, mag) {
   let y = Math.sqrt(mag ** 2 - x ** 2)
   return -y
 }
 
-class MedBall {
+//draws the paddle onto the canvas
+function drawPaddle() {
+  context.beginPath()
+  context.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight)
+  context.strokeStyle = 'black'
+  context.stroke()
+  context.fillStyle = 'blue'
+  context.fill()
+  context.closePath()
+}
+
+//checks for collisions w/ wall
+wallCollision = (i) => {
+  if (i !== undefined) {
+    if (
+      ballz[i].x + ballz[i].xVelocity > canvas.width - ballz[i].r ||
+      ballz[i].x + ballz[i].xVelocity < ballz[i].r
+    ) {
+      ballz[i].xVelocity = -ballz[i].xVelocity
+    }
+    if (ballz[i].y + ballz[i].yVelocity < ballz[i].r) {
+      ballz[i].yVelocity = -ballz[i].yVelocity
+    } else if (ballz[i].y + ballz[i].yVelocity > canvas.height - ballz[i].r)
+      if (ballz[i].x > paddleX && ballz[i].x < paddleX + paddleWidth) {
+        ballz[i].yVelocity = -ballz[i].yVelocity
+      } else {
+        ballFallz.push('1')
+        ballz.splice(i, 1)
+        console.log(ballFallz.length)
+      }
+  }
+}
+
+function ballCollisionDet(b1, b2) {
+  if (b2 !== undefined) {
+    if (b1.x + b1.xVelocity + b1.r > b2.x + b2.xVelocity + b2.r) {
+      // b1.xVelocity = -b1.xVelocity
+      // b2.xVelocity = -b2.xVelocity
+      console.log('collision')
+    }
+    if (b1.y + b1.yVelocity + b1.r > b2.y + b2.yVelocity + b2.r) {
+      // b1.yVelocity = -b1.yVelocity
+      // b2.yVelocity = -b2.yVelocity
+      console.log('collision')
+    }
+  }
+}
+
+function keyDownHandler(e) {
+  if (e.key == 'Right' || e.key == 'ArrowRight' || e.key == 'd') {
+    rightPressed = true
+  } else if (e.key == 'Left' || e.key == 'ArrowLeft' || e.key == 'a') {
+    leftPressed = true
+  }
+}
+function keyUpHandler(e) {
+  if (e.key == 'Right' || e.key == 'ArrowRight' || e.key == 'd') {
+    rightPressed = false
+  } else if (e.key == 'Left' || e.key == 'ArrowLeft' || e.key == 'a') {
+    leftPressed = false
+  }
+}
+function mouseMoveHandler(e) {
+  var relativeX = e.clientX - canvas.offsetLeft
+  if (relativeX > 0 && relativeX < canvas.width) {
+    paddleX = relativeX - paddleWidth / 2
+  }
+}
+keyPressCheck = () => {
+  if (rightPressed) {
+    paddleX += 10
+    if (paddleX + paddleWidth > canvas.width) {
+      paddleX = canvas.width - paddleWidth
+    }
+  } else if (leftPressed) {
+    paddleX -= 10
+    if (paddleX < 0) {
+      paddleX = 0
+    }
+  }
+}
+//Event Listeners/////////////////////////////////////////////
+document.addEventListener('keydown', keyDownHandler, false)
+document.addEventListener('keyup', keyUpHandler, false)
+document.addEventListener('mousemove', mouseMoveHandler, false)
+//Ball Classes//////////////////////////////////////////////////
+
+//class for slowest ball
+class slowBall {
   constructor() {
-    this.r = 5
+    this.r = 50
     this.x = canvas.width / 2
     this.y = canvas.height - 50
     this.mag = 4
     this.xVelocity = randomX(this.mag)
     this.yVelocity = randomY(this.xVelocity, this.mag)
+    this.collisionCounter = []
     ballz.push(this)
   }
-
+  //draws ball onto the canvas
   drawBall() {
     context.beginPath()
     context.arc(this.x, this.y, this.r, 0, Math.PI * 2)
@@ -39,35 +155,31 @@ class MedBall {
     context.fillStyle = `grey`
     context.fill()
   }
+  //handles movement
   move() {
     this.x += this.xVelocity
     this.y += this.yVelocity
   }
-  wallCollision() {
-    if (
-      this.x + this.xVelocity > canvas.width - this.r ||
-      this.x + this.xVelocity < this.r
-    ) {
-      this.xVelocity = -this.xVelocity
-    }
-    if (
-      this.y + this.yVelocity > canvas.height - this.r ||
-      this.y + this.yVelocity < this.r
-    ) {
-      this.yVelocity = -this.yVelocity
-    }
-  }
 }
 
-let ball1 = new MedBall()
-
+//Ball Creation Funtions////////////////////////////////
+let ball = new slowBall()
+setInterval(function throwBall() {
+  ball = new slowBall()
+}, 5000)
+//Animation Function/////////////////////////////////////
 function draw() {
   context.clearRect(0, 0, canvas.width, canvas.height)
-  ballz.forEach((b) => {
+  ballz.forEach((b, index) => {
     b.drawBall()
     b.move()
-    b.wallCollision()
+    wallCollision(index)
+    for (let i = index + 1; i < ballz.length; i++) {
+      ballCollisionDet(b[index], b[i])
+    }
   })
+  drawPaddle()
+  keyPressCheck()
   requestAnimationFrame(draw)
 }
 
