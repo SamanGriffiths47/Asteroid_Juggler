@@ -7,7 +7,8 @@ const paddleWidth = 75
 let paddleX = (canvas.width - paddleWidth * 2) / 2
 let rightPressed = false
 let leftPressed = false
-let gameActive = false
+let gameActive = true
+let playerScore = 0
 
 if (gameActive === true) {
   //Global Functions//////////////////////////////////////////////////////////////////////////////////
@@ -57,15 +58,16 @@ if (gameActive === true) {
       if (ballz[i].position.y + ballz[i].velocity.y < ballz[i].r) {
         ballz[i].velocity.y = -ballz[i].velocity.y
       } else if (
-        ballz[i].position.y + ballz[i].r / 1.2 + ballz[i].velocity.y >
-          canvas.height - paddleHeight ||
-        ballz[i].position.y + ballz[i].velocity.y > canvas.height
+        ballz[i].position.y + ballz[i].r > canvas.height - paddleHeight ||
+        ballz[i].position.y + ballz[i].r > canvas.height
       )
         if (
           ballz[i].position.x > paddleX - ballz[i].r / 3 &&
           ballz[i].position.x < paddleX + paddleWidth * 2 + ballz[i].r / 3
         ) {
           ballz[i].velocity.y = -ballz[i].velocity.y
+          playerScore += 10
+          console.log(playerScore)
         } else {
           ballFallz.push('1')
           ballz.length = 0
