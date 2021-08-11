@@ -7,7 +7,7 @@ const paddleWidth = 75
 let paddleX = (canvas.width - paddleWidth * 2) / 2
 let rightPressed = false
 let leftPressed = false
-let gameActive = true
+let gameActive = false
 let playerScore = 0
 
 if (gameActive === true) {
