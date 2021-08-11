@@ -67,23 +67,23 @@ function drawPaddle() {
 wallCollision = (i) => {
   if (i !== undefined) {
     if (
-      ballz[i].x + ballz[i].xVelocity > canvas.width - ballz[i].r ||
-      ballz[i].x + ballz[i].xVelocity < ballz[i].r
+      ballz[i].position.x + ballz[i].velocityX > canvas.width - ballz[i].r ||
+      ballz[i].position.x + ballz[i].velocityX < ballz[i].r
     ) {
-      ballz[i].xVelocity = -ballz[i].xVelocity
+      ballz[i].velocityX = -ballz[i].velocityX
     }
-    if (ballz[i].y + ballz[i].yVelocity < ballz[i].r) {
-      ballz[i].yVelocity = -ballz[i].yVelocity
+    if (ballz[i].position.y + ballz[i].velocityY < ballz[i].r) {
+      ballz[i].velocityY = -ballz[i].velocityY
     } else if (
-      ballz[i].y + ballz[i].r / 1.2 + ballz[i].yVelocity >
+      ballz[i].position.y + ballz[i].r / 1.2 + ballz[i].velocityY >
         canvas.height - paddleHeight ||
-      ballz[i].y + ballz[i].yVelocity > canvas.height
+      ballz[i].position.y + ballz[i].velocityY > canvas.height
     )
       if (
-        ballz[i].x > paddleX - ballz[i].r / 3 &&
-        ballz[i].x < paddleX + paddleWidth * 2 + ballz[i].r / 3
+        ballz[i].position.x > paddleX - ballz[i].r / 3 &&
+        ballz[i].position.x < paddleX + paddleWidth * 2 + ballz[i].r / 3
       ) {
-        ballz[i].yVelocity = -ballz[i].yVelocity
+        ballz[i].velocityY = -ballz[i].velocityY
       } else {
         ballFallz.push('1')
         ballz.splice(i, 1)
@@ -91,20 +91,23 @@ wallCollision = (i) => {
   }
 }
 
-function ballCollisionDet(b1, b2) {
-  console.log(b2)
-  if (b2 !== undefined) {
-    if (b1.x + b1.xVelocity + b1.r > b2.x + b2.xVelocity + b2.r) {
-      // b1.xVelocity = -b1.xVelocity
-      // b2.xVelocity = -b2.xVelocity
-      console.log('collision')
-    }
-    if (b1.y + b1.yVelocity + b1.r > b2.y + b2.yVelocity + b2.r) {
-      // b1.yVelocity = -b1.yVelocity
-      // b2.yVelocity = -b2.yVelocity
-      console.log('collision')
-    }
+//collision detection between two balls
+function coll_det_bb(b1, b2) {
+  if (b1.r + b2.r >= b2.position.subtract(b1.position).magnitude()) {
+    return true
+  } else {
+    return false
   }
+}
+
+//penetration resolution
+//repositions the balls based on the penetration depth and the collision normal
+function pen_res_bb(b1, b2) {
+  let dist = b1.position.subtract(b2.position)
+  let pen_depth = b1.r + b2.r - dist.magnitude()
+  let pen_res = dist.unit().mult(pen_depth / 2)
+  b1.position = b1.position.add(pen_res)
+  b2.position = b2.position.add(pen_res.multiply(-1))
 }
 
 function keyDownHandler(e) {
@@ -152,23 +155,54 @@ document.addEventListener('keydown', keyDownHandler, false)
 document.addEventListener('keyup', keyUpHandler, false)
 document.addEventListener('mousemove', mouseMoveHandler, false)
 //Ball Classes//////////////////////////////////////////////////
+class Vector {
+  constructor(x, y) {
+    this.x = x
+    this.y = y
+  }
+  add(v) {
+    return new Vector(this.x + v.x, this.y + v.y)
+  }
+  subtract(v) {
+    return new Vector(this.x - v.x, this.y - v.y)
+  }
+  magnitude() {
+    return Math.sqrt(this.x ** 2 + this.y ** 2)
+  }
+  multiply(n) {
+    return new Vector(this.x * n, this.y * n)
+  }
+  normal() {
+    return new Vector(-this.y, this.x).unit()
+  }
+  unit() {
+    if (this.magnitude() === 0) {
+      return new Vector(0, 0)
+    } else {
+      return new Vector(this.x / this.magnitude(), this.y / this.magnitude())
+    }
+  }
+
+  static dot(v1, v2) {
+    return v1.x * v2.x + v1.y * v2.y
+  }
+}
 
 //class for slowest ball
 class slowBall {
   constructor() {
     this.r = 30
-    this.x = canvas.width / 2
-    this.y = canvas.height - 100
+    this.position = new Vector(canvas.width / 2, canvas.height - 100)
     this.mag = 4
-    this.xVelocity = randomX(this.mag)
-    this.yVelocity = randomY(this.xVelocity, this.mag)
+    this.velocityX = randomX(this.mag)
+    this.velocityY = randomY(this.velocityX, this.mag)
     this.collisionCounter = []
     ballz.push(this)
   }
   //draws ball onto the canvas
   drawBall() {
     context.beginPath()
-    context.arc(this.x, this.y, this.r, 0, Math.PI * 2)
+    context.arc(this.position.x, this.position.y, this.r, 0, Math.PI * 2)
     context.strokeStyle = `black`
     context.stroke()
     context.fillStyle = `grey`
@@ -176,15 +210,20 @@ class slowBall {
   }
   //handles movement
   move() {
-    this.x += this.xVelocity
-    this.y += this.yVelocity
+    this.position.x += this.velocityX
+    this.position.y += this.velocityY
   }
 }
 
 //Ball Creation Funtions////////////////////////////////
 let ball = new slowBall()
-setInterval(function throwBall() {
+let throwBall = setInterval(function () {
+  let counter = 0
   ball = new slowBall()
+  counter++
+  if (counter >= 1) {
+    clearInterval(throwBall)
+  }
 }, 5000)
 //Animation Function/////////////////////////////////////
 function draw() {
@@ -193,8 +232,10 @@ function draw() {
     b.drawBall()
     b.move()
     wallCollision(index)
-    for (let i = index - 1; i < ballz.length; i++) {
-      ballCollisionDet(ballz[index], ballz[i])
+    for (let i = index + 1; i < ballz.length; i++) {
+      if (coll_det_bb(ballz[index], ballz[i])) {
+        pen_res_bb(ballz[index], ballz[i])
+      }
     }
   })
   drawPaddle()
