@@ -4,7 +4,7 @@ const ballz = []
 const ballFallz = []
 const paddleHeight = 10
 const paddleWidth = 75
-let paddleX = (canvas.width - paddleWidth) / 2
+let paddleX = (canvas.width - paddleWidth * 2) / 2
 let rightPressed = false
 let leftPressed = false
 const possibleBalls = {
@@ -50,7 +50,12 @@ function randomY(x, mag) {
 //draws the paddle onto the canvas
 function drawPaddle() {
   context.beginPath()
-  context.rect(paddleX, canvas.height - paddleHeight, paddleWidth, paddleHeight)
+  context.rect(
+    paddleX,
+    canvas.height - paddleHeight,
+    paddleWidth * 2,
+    paddleHeight
+  )
   context.strokeStyle = 'black'
   context.stroke()
   context.fillStyle = 'blue'
@@ -69,18 +74,25 @@ wallCollision = (i) => {
     }
     if (ballz[i].y + ballz[i].yVelocity < ballz[i].r) {
       ballz[i].yVelocity = -ballz[i].yVelocity
-    } else if (ballz[i].y + ballz[i].yVelocity > canvas.height - ballz[i].r)
-      if (ballz[i].x > paddleX && ballz[i].x < paddleX + paddleWidth) {
+    } else if (
+      ballz[i].y + ballz[i].r / 1.2 + ballz[i].yVelocity >
+        canvas.height - paddleHeight ||
+      ballz[i].y + ballz[i].yVelocity > canvas.height
+    )
+      if (
+        ballz[i].x > paddleX - ballz[i].r / 3 &&
+        ballz[i].x < paddleX + paddleWidth * 2 + ballz[i].r / 3
+      ) {
         ballz[i].yVelocity = -ballz[i].yVelocity
       } else {
         ballFallz.push('1')
         ballz.splice(i, 1)
-        console.log(ballFallz.length)
       }
   }
 }
 
 function ballCollisionDet(b1, b2) {
+  console.log(b2)
   if (b2 !== undefined) {
     if (b1.x + b1.xVelocity + b1.r > b2.x + b2.xVelocity + b2.r) {
       // b1.xVelocity = -b1.xVelocity
@@ -110,16 +122,22 @@ function keyUpHandler(e) {
   }
 }
 function mouseMoveHandler(e) {
-  var relativeX = e.clientX - canvas.offsetLeft
+  let relativeX = e.clientX - canvas.offsetLeft
   if (relativeX > 0 && relativeX < canvas.width) {
-    paddleX = relativeX - paddleWidth / 2
+    paddleX = relativeX - paddleWidth
+  }
+  if (paddleX + paddleWidth * 2 > canvas.width) {
+    paddleX = canvas.width - paddleWidth * 2
+  }
+  if (paddleX < 0) {
+    paddleX = 0
   }
 }
 keyPressCheck = () => {
   if (rightPressed) {
     paddleX += 10
-    if (paddleX + paddleWidth > canvas.width) {
-      paddleX = canvas.width - paddleWidth
+    if (paddleX + paddleWidth * 2 > canvas.width) {
+      paddleX = canvas.width - paddleWidth * 2
     }
   } else if (leftPressed) {
     paddleX -= 10
@@ -128,6 +146,7 @@ keyPressCheck = () => {
     }
   }
 }
+paddleWallCollision = () => {}
 //Event Listeners/////////////////////////////////////////////
 document.addEventListener('keydown', keyDownHandler, false)
 document.addEventListener('keyup', keyUpHandler, false)
@@ -137,9 +156,9 @@ document.addEventListener('mousemove', mouseMoveHandler, false)
 //class for slowest ball
 class slowBall {
   constructor() {
-    this.r = 50
+    this.r = 30
     this.x = canvas.width / 2
-    this.y = canvas.height - 50
+    this.y = canvas.height - 100
     this.mag = 4
     this.xVelocity = randomX(this.mag)
     this.yVelocity = randomY(this.xVelocity, this.mag)
@@ -174,8 +193,8 @@ function draw() {
     b.drawBall()
     b.move()
     wallCollision(index)
-    for (let i = index + 1; i < ballz.length; i++) {
-      ballCollisionDet(b[index], b[i])
+    for (let i = index - 1; i < ballz.length; i++) {
+      ballCollisionDet(ballz[index], ballz[i])
     }
   })
   drawPaddle()
