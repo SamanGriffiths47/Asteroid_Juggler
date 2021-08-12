@@ -108,8 +108,8 @@ header {
 
   height: 480px;
   width: 640px;
-  background-color: rgba(0, 0, 0, 0.432);
-  border: 1px solid blue;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid rgba(0, 0, 255, 0.151);
 }
 .message > h1 {
   font-size: 50px;

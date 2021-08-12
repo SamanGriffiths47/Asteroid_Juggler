@@ -14,6 +14,7 @@ let gameActive = false
 let playerScore = 0
 
 if (gameActive === false) {
+  // DEFAULT GAME DISPLAY FUNCTIONS///////////////////////////////////////////////////////
   function randomX(mag) {
     let x = Math.random()
     if (x < 0.5) {
@@ -47,23 +48,17 @@ if (gameActive === false) {
   wallCollision = (i) => {
     if (i !== undefined) {
       if (
-        ballz[i].position.x + ballz[i].velocity.x > canvas.width - ballz[i].r ||
-        ballz[i].position.x + ballz[i].velocity.x < ballz[i].r
+        ballz[i].position.x + ballz[i].r > canvas.width ||
+        ballz[i].position.x - ballz[i].r < 0
       ) {
         ballz[i].velocity.x = -ballz[i].velocity.x
       }
-      if (ballz[i].position.y + ballz[i].velocity.y < ballz[i].r) {
+      if (
+        ballz[i].position.y + ballz[i].r > canvas.height ||
+        ballz[i].position.y - ballz[i].r < 0
+      ) {
         ballz[i].velocity.y = -ballz[i].velocity.y
-      } else if (
-        ballz[i].position.y + ballz[i].r > canvas.height - paddleHeight ||
-        ballz[i].position.y + ballz[i].r > canvas.height
-      )
-        if (
-          ballz[i].position.x > paddleX - ballz[i].r / 3 &&
-          ballz[i].position.x < paddleX + paddleWidth * 2 + ballz[i].r / 3
-        ) {
-          ballz[i].velocity.y = -ballz[i].velocity.y
-        }
+      }
     }
   }
 
@@ -155,7 +150,7 @@ if (gameActive === false) {
       context.arc(this.position.x, this.position.y, this.r, 0, Math.PI * 2)
       context.strokeStyle = `black`
       context.stroke()
-      context.fillStyle = `grey`
+      context.fillStyle = `blue`
       context.fill()
     }
     //handles movement
@@ -165,13 +160,14 @@ if (gameActive === false) {
     }
   }
 
+  let counter = 0
+  ball = new slowBall()
   let throwball = setInterval(function () {
-    let counter = 0
     ball = new slowBall()
-    if (counter > 3) {
+    ++counter
+    if (counter > 2) {
       clearInterval(throwball)
     }
-    ++counter
   }, 5000)
 
   function draw() {
@@ -252,12 +248,12 @@ if (gameActive === true) {
   wallCollision = (i) => {
     if (i !== undefined) {
       if (
-        ballz[i].position.x + ballz[i].velocity.x > canvas.width - ballz[i].r ||
-        ballz[i].position.x + ballz[i].velocity.x < ballz[i].r
+        ballz[i].position.x + ballz[i].r > canvas.width ||
+        ballz[i].position.x - ballz[i].r < 0
       ) {
         ballz[i].velocity.x = -ballz[i].velocity.x
       }
-      if (ballz[i].position.y + ballz[i].velocity.y < ballz[i].r) {
+      if (ballz[i].position.y - ballz[i].r < 0) {
         ballz[i].velocity.y = -ballz[i].velocity.y
       } else if (
         ballz[i].position.y + ballz[i].r > canvas.height - paddleHeight ||
