@@ -4,6 +4,7 @@ const ballz = []
 const ballFallz = []
 const paddleHeight = 10
 const paddleWidth = 75
+const thirdHealth = document.getElementById('threeLife').style
 let paddleX = (canvas.width - paddleWidth * 2) / 2
 let rightPressed = false
 let leftPressed = false
@@ -12,7 +13,13 @@ let playerScore = 0
 
 if (gameActive === true) {
   //Global Functions//////////////////////////////////////////////////////////////////////////////////
+  // Interactivity
 
+  if (ballFallz.length === 1) {
+    thirdHealth.display = 'none'
+  }
+
+  // Canvas Display
   //randomly generates initial x & y velocities so all balls can
   //start moving at different angles but the same overall speed based on class
   function randomX(mag) {
@@ -66,8 +73,15 @@ if (gameActive === true) {
           ballz[i].position.x < paddleX + paddleWidth * 2 + ballz[i].r / 3
         ) {
           ballz[i].velocity.y = -ballz[i].velocity.y
-          playerScore += 10
-          console.log(playerScore)
+          if (ballz[i].mag === 3) {
+            playerScore += 10
+          }
+          if (ballz[i].mag === 3) {
+            playerScore += 10
+          }
+          if (ballz[i].mag === 3) {
+            playerScore += 10
+          }
         } else {
           ballFallz.push('1')
           ballz.length = 0
@@ -249,5 +263,4 @@ if (gameActive === true) {
   }
   requestAnimationFrame(draw)
 }
-console.log(gameActive)
 //Game Logic///////////////////////////////////////////////////////////////////////////////////////

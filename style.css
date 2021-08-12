@@ -30,7 +30,7 @@ header {
   justify-self: start;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
 
   -webkit-text-stroke: white 2px;
   -webkit-text-fill-color: rgba(255, 255, 255, 0);
@@ -39,30 +39,29 @@ header {
 }
 /* Health Bar */
 #healthContainer {
-  justify-self: flex-end;
   /* align-self: stretch; */
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   height: 50%;
 }
 #healthDisplay {
   display: grid;
   grid-template-columns: 3 1fr;
-  margin-top: 10%;
+  margin-bottom: 20px;
   border: 1px solid white;
   height: 20px;
   width: 500px;
 }
-#oneLife {
+#firstHealth {
   grid-row: 1/2;
   background-color: green;
 }
-#twoLife {
+#secondHealth {
   grid-row: 2/3;
   background-color: green;
 }
-#threeLife {
+#thirdHealth {
   grid-row: 3/4;
   background-color: green;
 }
@@ -96,9 +95,8 @@ header {
   width: 50%;
   height: 100%;
 }
+/* Player Messages Screens */
 .message {
-  /* align-self: baseline; */
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -109,6 +107,22 @@ header {
   width: 640px;
   background-color: black;
   border: 1px solid blue;
+}
+.message > h1 {
+  font-size: 50px;
+  margin: 0;
+}
+.message > p {
+  font-size: 18px;
+}
+#niceJob {
+  display: none;
+}
+#gameOver {
+  display: none;
+}
+#start {
+  display: flex;
 }
 #canvas {
   position: absolute;
