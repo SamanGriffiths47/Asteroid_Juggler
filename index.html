@@ -8,21 +8,34 @@
   <title>Juggler!</title>
 </head>
 <body>
-  <header>Welcome To Juggler!</header>
-  <article>
-    <h1>Best Scores</h1> 
-    <ol>
-      <li>Smitty Werbenjagermanjensen: 540</li>
-    <li>Sheldon Dinkleberg: 410</li>
-    <li>Meg Griffin: 3</li>
-    </ol>
-  </article>
-  <div id='healthContainer'><div id='healthDisplay'></div></div>
-  <div id='game-screen'>
-    <div id='start'><h1>Start</h1></div>
-    <div id='GameOver'><h1 id='GO'>Game Over</h1><p id='restart'>restart</p></div>
-    <canvas id="canvas" tabindex=0 width="640" height="480"></canvas>
-  </div>
+  <section id='fbOne'>
+    <header>Welcome To Juggler!</header>
+    <div id='healthContainer'><div id='healthDisplay'><div id='oneLife'></div>
+    <div id='twoLife'></div>
+    <div id='threeLife'></div></div></div>
+  </section>
+  <section id='fbTwo'>
+    <article id='scores'>
+      <h1>Best Scores</h1> 
+      <ol>
+        <li>Smitty Werbenjagermanjensen: 540</li>
+      <li>Sheldon Dinkleberg: 410</li>
+      <li>Meg Griffin: 3</li>
+      </ol>
+      <div>Your Score: 0</div>
+    </article>
+    <article id='game-screen'>
+      <div class='message' id='start'><h1>Start</h1><p>(You Need 400 Points To Move On)</p></div>
+      <div class='message' id='gameOver'><h1 id='GO'>Game Over</h1><p id='restart'>restart</p></div>
+      <div class='message' id='niceJob'><h1 id='nice'>Nice Job!</h1><p id='moveOn'>Click Level 2 To Move On</p></div>
+      <canvas id="canvas" tabindex=0 width="640" height="480"></canvas>
+    </article>
+    <article id='levels'>
+      <section>Level 1</section>
+      <section>Level 2</section>
+      <section>Level 3</section>
+    </article>
+  </section>
 
   <script src="script.js"></script>
 </body>

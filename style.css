@@ -5,16 +5,27 @@ html {
 }
 
 body {
-  /* display: flex;
-  flex-direction: column; */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  justify-content: stretch;
 
   margin: 0px;
-  min-width: 100%;
-  min-height: 100%;
+  width: 100%;
+  height: 100%;
   background-image: url(./WOW.gif);
   background-size: contain;
   color: white;
 }
+
+/* First Flexbox//////////////////////////////////////////////////////////////////// */
+#fbOne {
+  display: flex;
+  flex-direction: column;
+  height: 40%;
+}
+/* Title */
 header {
   justify-self: start;
   display: flex;
@@ -24,29 +35,74 @@ header {
   -webkit-text-stroke: white 2px;
   -webkit-text-fill-color: rgba(255, 255, 255, 0);
   font-size: 80px;
+  height: 50%;
 }
+/* Health Bar */
 #healthContainer {
+  justify-self: flex-end;
+  /* align-self: stretch; */
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 50%;
 }
 #healthDisplay {
+  display: grid;
+  grid-template-columns: 3 1fr;
   margin-top: 10%;
   border: 1px solid white;
   height: 20px;
   width: 500px;
 }
-#game-screen {
-  position: relative;
-  margin-top: 20%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+#oneLife {
+  grid-row: 1/2;
+  background-color: green;
 }
-#start {
+#twoLife {
+  grid-row: 2/3;
+  background-color: green;
+}
+#threeLife {
+  grid-row: 3/4;
+  background-color: green;
+}
+
+/* Second FlexBox////////////////////////////////////////////////////////////////////// */
+#fbTwo {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  height: 60%;
+  width: 100%;
+}
+/* Score Display */
+#scores {
+  width: 25%;
+  height: inherit;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+/* Game Screen */
+#game-screen {
+  align-self: flex-end;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 50%;
+  height: 100%;
+}
+.message {
+  /* align-self: baseline; */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   position: absolute;
 
   height: 480px;
@@ -58,6 +114,16 @@ header {
   position: absolute;
   border: 1px solid blue;
   display: block;
-  margin: 0 auto;
+  margin: none;
   background: rgba(218, 231, 255, 0.85);
+}
+
+/* Levels */
+#levels {
+  width: 25%;
+  height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
