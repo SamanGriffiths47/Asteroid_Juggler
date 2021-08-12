@@ -9,10 +9,19 @@
 </head>
 <body>
   <header>Welcome To Juggler!</header>
+  <article>
+    <h1>Best Scores</h1> 
+    <ol>
+      <li>Smitty Werbenjagermanjensen: 540</li>
+    <li>Sheldon Dinkleberg: 410</li>
+    <li>Meg Griffin: 3</li>
+    </ol>
+  </article>
+  <div id='healthContainer'><div id='healthDisplay'></div></div>
   <div id='game-screen'>
-    
-    <canvas id="canvas" tabindex=0 width="640" height="480"></canvas>
     <div id='start'><h1>Start</h1></div>
+    <div id='GameOver'><h1 id='GO'>Game Over</h1><p id='restart'>restart</p></div>
+    <canvas id="canvas" tabindex=0 width="640" height="480"></canvas>
   </div>
 
   <script src="script.js"></script>

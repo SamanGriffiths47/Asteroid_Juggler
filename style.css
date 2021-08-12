@@ -5,8 +5,8 @@ html {
 }
 
 body {
-  display: grid;
-  grid-template: repeat(8, 1fr) / repeat(8, 1fr);
+  /* display: flex;
+  flex-direction: column; */
 
   margin: 0px;
   min-width: 100%;
@@ -16,15 +16,29 @@ body {
   color: white;
 }
 header {
-  grid-area: 1/3/2/7;
+  justify-self: start;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   -webkit-text-stroke: white 2px;
   -webkit-text-fill-color: rgba(255, 255, 255, 0);
   font-size: 80px;
 }
+#healthContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#healthDisplay {
+  margin-top: 10%;
+  border: 1px solid white;
+  height: 20px;
+  width: 500px;
+}
 #game-screen {
-  grid-area: 3/3/8/7;
   position: relative;
-
+  margin-top: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
