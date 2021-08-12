@@ -121,18 +121,18 @@ header {
   display: none;
 }
 #start {
-  display: none;
+  display: flex;
 }
 #canvas {
   position: absolute;
   border: 1px solid blue;
-  display: block;
+  display: none;
   background: rgba(218, 231, 255, 0.85);
 }
 #canvasTwo {
   position: absolute;
   border: 1px solid blue;
-  display: none;
+  display: block;
   background: rgba(218, 231, 255, 0.85);
 }
 
