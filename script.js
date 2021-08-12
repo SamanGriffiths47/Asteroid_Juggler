@@ -4,20 +4,55 @@ const ballz = []
 const ballFallz = []
 const paddleHeight = 10
 const paddleWidth = 75
-const thirdHealth = document.getElementById('threeLife').style
+const firstHealth = document.getElementById('firstHealth').style
+const secondHealth = document.getElementById('secondHealth').style
+const thirdHealth = document.getElementById('thirdHealth').style
 let paddleX = (canvas.width - paddleWidth * 2) / 2
 let rightPressed = false
 let leftPressed = false
 let gameActive = false
 let playerScore = 0
 
+if (gameActive === false) {
+  function draw() {
+    context.clearRect(0, 0, canvas.width, canvas.height)
+    ballz.forEach((b, index) => {
+      b.drawBall()
+      b.move()
+      wallCollision(index)
+      for (let i = index + 1; i < ballz.length; i++) {
+        if (ballOnBallCollision(ballz[index], ballz[i])) {
+          noPenetration(ballz[index], ballz[i])
+          ricochetEffect(ballz[index], ballz[i])
+        }
+      }
+    })
+    drawPaddle()
+    requestAnimationFrame(draw)
+  }
+  requestAnimationFrame(draw)
+}
+
 if (gameActive === true) {
   //Global Functions//////////////////////////////////////////////////////////////////////////////////
   // Interactivity
 
-  if (ballFallz.length === 1) {
-    thirdHealth.display = 'none'
+  threeStrikes = () => {
+    if (ballFallz.length === 1) {
+      thirdHealth.display = 'none'
+      secondHealth.backgroundColor = 'yellow'
+      firstHealth.backgroundColor = 'yellow'
+    }
+    if (ballFallz.length === 2) {
+      secondHealth.display = 'none'
+      firstHealth.backgroundColor = 'red'
+    }
+    if (ballFallz.length >= 3) {
+      firstHealth.display = 'none'
+      gameActive = false
+    }
   }
+  threeStrikes()
 
   // Canvas Display
   //randomly generates initial x & y velocities so all balls can

@@ -56,14 +56,17 @@ header {
 #firstHealth {
   grid-row: 1/2;
   background-color: green;
+  transition: 4s;
 }
 #secondHealth {
   grid-row: 2/3;
   background-color: green;
+  transition: 4s;
 }
 #thirdHealth {
   grid-row: 3/4;
   background-color: green;
+  transition: 4s;
 }
 
 /* Second FlexBox////////////////////////////////////////////////////////////////////// */
@@ -105,7 +108,7 @@ header {
 
   height: 480px;
   width: 640px;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.432);
   border: 1px solid blue;
 }
 .message > h1 {
