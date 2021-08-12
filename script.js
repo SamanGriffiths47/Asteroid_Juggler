@@ -1,8 +1,6 @@
 const paddleHeight = 10
 const paddleWidth = 75
 const firstHealth = document.getElementById('firstHealth').style
-const secondHealth = document.getElementById('secondHealth').style
-const thirdHealth = document.getElementById('thirdHealth').style
 const gameOverScreen = document.getElementById('gameOver').style
 const niceJobScreen = document.getElementById('niceJob').style
 const StartScreen = document.getElementById('start').style
@@ -226,16 +224,13 @@ if (gameActive === true) {
   const pastScores = []
   //Global Functions//////////////////////////////////////////////////////////////////////////////////
   // Interactivity
-
   threeStrikes = () => {
-    console.log(ballFallz.length)
     if (ballFallz.length === 1) {
-      thirdHealth.display = 'none'
-      secondHealth.backgroundColor = 'yellow'
+      firstHealth.width = `${500 * (2 / 3)}px`
       firstHealth.backgroundColor = 'yellow'
     }
     if (ballFallz.length === 2) {
-      secondHealth.display = 'none'
+      firstHealth.width = `${500 * (1 / 3)}px`
       firstHealth.backgroundColor = 'red'
     }
     if (ballFallz.length >= 3) {
@@ -310,6 +305,8 @@ if (gameActive === true) {
           // }
         } else {
           ballFallz.push('1')
+          console.log(ballFallz.length)
+          threeStrikes()
           ballz.length = 0
         }
     }
@@ -362,9 +359,8 @@ if (gameActive === true) {
   }
   // function for mouse movement
   mouseMoveHandler = (e) => {
-    let relativeX = e.clientX - canvas.width / 2 + 40
-    if (relativeX > 0 && relativeX < canvas.width) {
-      paddleX = relativeX - paddleWidth
+    if (e.offsetX > 0 && e.offsetX < canvas.width) {
+      paddleX = e.offsetX - paddleWidth
     }
     if (paddleX + paddleWidth * 2 > canvas.width) {
       paddleX = canvas.width - paddleWidth * 2
@@ -467,7 +463,7 @@ if (gameActive === true) {
   //Event Listeners///////////////////////////////////////////////////////////////////////////////////
   document.addEventListener('keydown', keyDownHandler, false)
   document.addEventListener('keyup', keyUpHandler, false)
-  document.addEventListener('mousemove', mouseMoveHandler, false)
+  document.addEventListener('mousemove', mouseMoveHandler)
 
   //Animation Function////////////////////////////////////////////////////////////////////////////////
   function draw() {
