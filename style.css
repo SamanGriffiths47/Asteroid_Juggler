@@ -108,8 +108,8 @@ header {
 
   height: 480px;
   width: 640px;
-  background-color: rgba(0, 0, 0, 0);
-  border: 1px solid rgba(0, 0, 255, 0.151);
+  background-color: rgba(0, 0, 0, 0.863);
+  border: 1px solid rgb(0, 0, 255);
 }
 .message > h1 {
   font-size: 50px;
@@ -125,13 +125,18 @@ header {
   display: none;
 }
 #start {
-  display: flex;
+  display: none;
 }
 #canvas {
   position: absolute;
   border: 1px solid blue;
   display: block;
-  margin: none;
+  background: rgba(218, 231, 255, 0.85);
+}
+#canvasTwo {
+  position: absolute;
+  border: 1px solid blue;
+  display: none;
   background: rgba(218, 231, 255, 0.85);
 }
 
