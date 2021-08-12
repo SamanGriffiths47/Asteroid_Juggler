@@ -7,7 +7,7 @@ const StartScreen = document.getElementById('start').style
 const ballz = []
 let gameActive = true
 
-// if (gameActive === false) {
+// if (!gameActive) {
 //   const canvas = document.getElementById('canvasTwo')
 //   const context = canvas.getContext('2d')
 //   let paddleX = (canvas.width - paddleWidth * 2) / 2
@@ -213,14 +213,16 @@ let gameActive = true
 //   requestAnimationFrame(draw)
 // }
 
-if (gameActive === true) {
+if (gameActive) {
   const canvas = document.getElementById('canvas')
   const context = canvas.getContext('2d')
   const ballFallz = []
+  let mouseover = false
   let paddleX = (canvas.width - paddleWidth * 2) / 2
   let rightPressed = false
   let leftPressed = false
   let playerScore = 0
+  let scoreDisplay = document.getElementById('playerScore')
   const pastScores = []
   //Global Functions//////////////////////////////////////////////////////////////////////////////////
   // Interactivity
@@ -296,6 +298,7 @@ if (gameActive === true) {
           ballz[i].velocity.y = -ballz[i].velocity.y
           if (ballz[i].mag === 3) {
             playerScore += 10
+            scoreDisplay.innerText = `Your Score: ${playerScore}`
           }
           // if (ballz[i].mag === 3) {
           //   playerScore += 10
@@ -358,17 +361,17 @@ if (gameActive === true) {
     }
   }
   // function for mouse movement
-  mouseMoveHandler = (e) => {
-    if (e.offsetX > 0 && e.offsetX < canvas.width) {
-      paddleX = e.offsetX - paddleWidth
-    }
-    if (paddleX + paddleWidth * 2 > canvas.width) {
-      paddleX = canvas.width - paddleWidth * 2
-    }
-    if (paddleX < 0) {
-      paddleX = 0
-    }
-  }
+  // mouseMoveHandler = (e) => {
+  //   if (e.offsetX > 0 && e.offsetX < canvas.width) {
+  //     paddleX = e.offsetX - paddleWidth
+  //   }
+  //   if (paddleX + paddleWidth * 2 > canvas.width) {
+  //     paddleX = canvas.width - paddleWidth * 2
+  //   }
+  //   if (paddleX < 0) {
+  //     paddleX = 0
+  //   }
+  // }
   //in charge of paddle movement
   paddleMovement = () => {
     if (rightPressed) {
@@ -463,7 +466,25 @@ if (gameActive === true) {
   //Event Listeners///////////////////////////////////////////////////////////////////////////////////
   document.addEventListener('keydown', keyDownHandler, false)
   document.addEventListener('keyup', keyUpHandler, false)
-  document.addEventListener('mousemove', mouseMoveHandler)
+  document.addEventListener('mousemove', function (e) {
+    if (mouseover === true) {
+      if (e.offsetX > 0 && e.offsetX < canvas.width) {
+        paddleX = e.offsetX - paddleWidth
+      }
+      if (paddleX + paddleWidth * 2 > canvas.width) {
+        paddleX = canvas.width - paddleWidth * 2
+      }
+      if (paddleX < 0) {
+        paddleX = 0
+      }
+    }
+  })
+  canvas.addEventListener('mouseover', function () {
+    mouseover = true
+  })
+  canvas.addEventListener('mouseout', function () {
+    mouseover = false
+  })
 
   //Animation Function////////////////////////////////////////////////////////////////////////////////
   function draw() {
