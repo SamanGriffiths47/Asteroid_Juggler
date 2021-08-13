@@ -2,7 +2,7 @@ const ballz = []
 const ballFallz = []
 const redAsteroid = new Image()
 redAsteroid.src = './Asteroids/Asteroid.png'
-const scoreNeeded = 10
+const scoreNeeded = 350
 const paddleHeight = 10
 const paddleWidth = 150
 const canvas = document.getElementById('canvas')
@@ -109,10 +109,10 @@ class slowBall {
       this.height * this.frameY,
       this.width,
       this.height,
-      this.position.x - this.r * 1.1,
-      this.position.y - this.r * 1,
-      this.r * 2.1,
-      this.r * 2.1
+      this.position.x - this.r * 1.2,
+      this.position.y - this.r * 1.1,
+      this.r * 2.3,
+      this.r * 2.3
     )
   }
   // Generates A Random Integer For X Component Of Velocity
@@ -213,8 +213,6 @@ const updateScore = () => {
 
 // Game Win Sequence
 const Win = () => {
-  document.querySelectorAll('#levels h1')[1].innerHTML =
-    '<a class="button" href="./Lvl2.html">Level 2</a>'
   ballFallz.length = 0
   finalScore = new Score(playerScore)
   finalScore.addScore()
