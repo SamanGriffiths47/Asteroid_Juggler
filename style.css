@@ -54,9 +54,9 @@ header {
   width: 500px;
 }
 #firstHealth {
-  width: 500px;
+  width: 1px;
   height: 20px;
-  background-color: green;
+  /* background-color: rgba(0, 128, 0, 0); */
   transition: 3s;
 }
 #secondHealth {
@@ -84,6 +84,7 @@ header {
   align-items: center;
   flex-direction: column;
 }
+
 /* Game Screen */
 #game-screen {
   align-self: flex-end;
@@ -126,15 +127,15 @@ header {
 #canvas {
   position: absolute;
   border: 1px solid blue;
-  display: none;
+  display: block;
   background: rgba(218, 231, 255, 0.85);
 }
-#canvasTwo {
+/* #canvasTwo {
   position: absolute;
   border: 1px solid blue;
   display: block;
   background: rgba(218, 231, 255, 0.85);
-}
+} */
 
 /* Levels */
 #levels {
