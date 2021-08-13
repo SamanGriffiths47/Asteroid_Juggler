@@ -2,7 +2,7 @@ const ballz = []
 const ballFallz = []
 const redAsteroid = new Image()
 redAsteroid.src = './Asteroids/Asteroid.png'
-const scoreNeeded = 350
+const scoreNeeded = 700
 const paddleHeight = 10
 const paddleWidth = 150
 const canvas = document.getElementById('canvas')
@@ -23,9 +23,9 @@ let mouseover = false
 let playerScore = 0
 
 let bestScores = [
-  { name: 'Bestof Thabest', score: 640 },
-  { name: 'Pretty Darngood', score: 410 },
-  { name: 'Meg Griffin', score: 3 }
+  { name: 'Bestof Thabest', score: 1530 },
+  { name: 'Pretty Darngood', score: 1110 },
+  { name: 'Dinkleberg', score: 770 }
 ]
 
 // Classes///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -152,14 +152,92 @@ class slowBall {
   }
 }
 
+class medBall {
+  constructor() {
+    this.r = 20
+    this.position = new Vector(canvas.width / 2, canvas.height - 100)
+    this.mag = 4.5
+    this.vx = this.randomX(this.mag)
+    this.vy = this.randomY(this.vx, this.mag)
+    this.velocity = new Vector(this.vx, this.vy)
+    this.height = 89
+    this.width = 89
+    this.frameX = 0
+    this.frameY = 0
+    ballz.push(this)
+  }
+  //draws ball onto the canvas
+  drawBall() {
+    // context.beginPath()
+    // context.arc(this.position.x, this.position.y, this.r, 0, Math.PI * 2)
+    // context.strokeStyle = `black`
+    // context.stroke()
+    // context.fillStyle = `blue`
+    // context.fill()
+    context.drawImage(
+      redAsteroid,
+      this.width * this.frameX,
+      this.height * this.frameY,
+      this.width,
+      this.height,
+      this.position.x - this.r * 1.05,
+      this.position.y - this.r * 1.05,
+      this.r * 2.1,
+      this.r * 2.1
+    )
+  }
+  // Generates A Random Integer For X Component Of Velocity
+  //This Way, Balls Can Be Thrown At Random Angle With The Same Speed
+  randomX(mag) {
+    let x = Math.random()
+    if (x < 0.5) {
+      x *= mag - Math.random() * mag
+    } else {
+      x *= -mag + Math.random() * mag
+    }
+    return x
+  }
+  //Generates A Random Integer For Y Component Of Velocity
+  //Based Off Of X Component And Vector Magnitude
+  randomY(x, mag) {
+    let y = Math.sqrt(mag ** 2 - x ** 2)
+    return -y
+  }
+  //Handles Movement
+  move() {
+    this.position = this.position.add(this.velocity)
+  }
+  spin() {
+    if (this.frameX < 19) {
+      this.frameX += 1
+    } else if (this.frameX === 19 && this.frameY === 0) {
+      this.frameX = 0
+      this.frameY += 1
+    } else if (this.frameX === 19 && this.frameY === 1) {
+      this.frameX = 0
+      this.frameY += 1
+    } else if (this.frameX === 19 && this.frameY === 2) {
+      this.frameX = 0
+      this.frameY = 0
+    }
+  }
+}
 // Ball Creation//////////////////////////////////////////////////////////////////////////////////////////////
 
 // When Game Is Active, Balls Are released at 6sec Intervals
 new slowBall()
+let counter = 1
 const pitcher = () => {
   const throwBall = setInterval(function () {
     if (gameActive) {
-      new slowBall()
+      if (counter === 0) {
+        new slowBall()
+        ++counter
+      } else if (counter === 1) {
+        console.log('1')
+        new medBall()
+        --counter
+      }
     } else {
       clearInterval(throwBall)
     }
@@ -298,7 +376,12 @@ wallCollision = (i) => {
             ballz[i].r +
             ballz[i].position.y
           ballz[i].velocity.y = -ballz[i].velocity.y
-          if (ballz[i].mag === 3) {
+          if (ballz[i].r === 20) {
+            console.log('1')
+            playerScore += 20
+            updateScore()
+          }
+          if (ballz[i].r === 30) {
             playerScore += 10
             updateScore()
           }
