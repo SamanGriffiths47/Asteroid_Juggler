@@ -1,31 +1,31 @@
+const ballz = []
+const ballFallz = []
+const scoreNeeded = 350
 const paddleHeight = 10
 const paddleWidth = 150
+const canvas = document.getElementById('canvas')
+const context = canvas.getContext('2d')
+const restartButton = document.getElementById('restart')
+const StartScreen = document.getElementById('start').style
 const firstHealth = document.getElementById('firstHealth').style
 const gameOverScreen = document.getElementById('gameOver').style
 const niceJobScreen = document.getElementById('niceJob').style
-const StartScreen = document.getElementById('start').style
-const ballz = []
-let gameActive = false
-const canvas = document.getElementById('canvas')
-const context = canvas.getContext('2d')
-const ballFallz = []
-let mouseover = false
+const restartButton2 = document.getElementById('restartTwo')
+const startButton = document.getElementById('startButton')
+let scoreDisplay = document.getElementById('playerScore')
 let paddleX = (canvas.width - paddleWidth * 2) / 2
 let rightPressed = false
 let leftPressed = false
+let gameActive = false
+let mouseover = false
 let playerScore = 0
-const scoreNeeded = 350
-let scoreDisplay = document.getElementById('playerScore')
-const startButton = document.getElementById('startButton')
-const restartButton = document.getElementById('restart')
-const restartButton2 = document.getElementById('restartTwo')
 let bestScores = [
   { name: 'Smitty Werbenjagermanjensen', score: 640 },
   { name: 'Sheldon Dinkleberg', score: 410 },
   { name: 'Meg Griffin', score: 3 }
 ]
 
-//Classes///////////////////////////////////////////////////////////////////////////////////////////////////
+// Classes///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Class For Score Save
 class Score {
@@ -77,7 +77,7 @@ class Vector {
     return v1.x * v2.x + v1.y * v2.y
   }
 }
-//Class For The Slowest Ball
+// Class For The Slowest Ball
 class slowBall {
   constructor() {
     this.r = 30
@@ -119,26 +119,31 @@ class slowBall {
     this.position = this.position.add(this.velocity)
   }
 }
-//Ball Creation//////////////////////////////////////////////////////////////////////////////////////////////
+// Ball Creation//////////////////////////////////////////////////////////////////////////////////////////////
 
 // When Game Is Active, Balls Are released at 6sec Intervals
-const throwBall = () => {
-  setInterval(function () {
+new slowBall()
+const pitcher = () => {
+  const throwBall = setInterval(function () {
     if (gameActive) {
-      ball = new slowBall()
-    } else clearInterval(setInterval)
+      new slowBall()
+    } else {
+      clearInterval(throwBall)
+    }
   }, 6000)
 }
-//Limits Ball Creation To 4 When Game Is Inactive
-const throwBall2 = () => {
-  setInterval(function () {
+
+// Limits Ball Creation To 4 When Game Is Inactive
+const pitcher2 = () => {
+  const throwBall2 = setInterval(function () {
     if (!gameActive && ballz.length < 4) {
-      ball = new slowBall()
-    } else clearInterval(setInterval)
+      new slowBall()
+    } else {
+      clearInterval(throwBall2)
+    }
   }, 6000)
 }
-ball = new slowBall()
-throwBall2()
+pitcher2()
 // Scoring//////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Sorts Scores By Amount
@@ -167,37 +172,37 @@ const postScores = () => {
   }
 }
 postScores()
-//Updates Current Score Display
+// Updates Current Score Display
 const updateScore = () => {
   scoreDisplay.innerText = `Your Score: ${playerScore}`
 }
-//Win/Loss Logic//////////////////////////////////////////////////////////////////////////////////////////
+// Win/Loss Logic//////////////////////////////////////////////////////////////////////////////////////////
 
 // Game Win Sequence
 const Win = () => {
+  ballFallz.length = 0
   finalScore = new Score(playerScore)
   finalScore.addScore()
   postScores()
   playerScore = 0
   updateScore()
-  niceJobScreen.display = 'flex'
-  ballFallz.length = 0
-  gameActive = false
   paddleX = canvas.width / 2 - paddleWidth
-  ball = new slowBall()
-  throwBall2()
+  gameActive = false
+  niceJobScreen.display = 'flex'
+  pitcher2()
 }
 // Game Loss Sequence
 const Lose = () => {
+  ballFallz.length = 0
   finalScore = new Score(playerScore)
   finalScore.addScore()
   postScores()
   playerScore = 0
   updateScore()
+  paddleX = canvas.width / 2 - paddleWidth
   gameOverScreen.display = 'flex'
   gameActive = false
-  ball = new slowBall()
-  throwBall2
+  pitcher2()
 }
 // Desides If Player Won Or Lost
 const gameOver = () => {
@@ -218,11 +223,12 @@ const threeStrikes = () => {
     firstHealth.backgroundColor = 'red'
   }
   if (ballFallz.length >= 3) {
-    firstHealth.display = 'none'
+    firstHealth.width = '10px'
+    firstHealth.backgroundColor = 'red'
     gameOver()
   }
 }
-//Collision Resolution///////////////////////////////////////////////////////////////////////////////
+// Collision Resolution///////////////////////////////////////////////////////////////////////////////
 
 // Checks For & Corrects Ball To Wall Collisions/////////////////
 wallCollision = (i) => {
@@ -281,7 +287,7 @@ wallCollision = (i) => {
 }
 // Ball To Ball Collisions///////////////////////////////////////
 
-//Checks For Ball To Ball Collisions
+// Checks For Ball To Ball Collisions
 ballOnBallCollision = (b1, b2) => {
   if (b1.r + b2.r >= b2.position.subtract(b1.position).magnitude()) {
     return true
@@ -289,7 +295,7 @@ ballOnBallCollision = (b1, b2) => {
     return false
   }
 }
-//Repositions Balls Based On Penetration Depth And Collision Normal
+// Repositions Balls Based On Penetration Depth And Collision Normal
 courseCorrection = (b1, b2) => {
   let dist = b1.position.subtract(b2.position)
   let pen_depth = b1.r + b2.r - dist.magnitude()
@@ -297,14 +303,14 @@ courseCorrection = (b1, b2) => {
   b1.position = b1.position.add(pen_res)
   b2.position = b2.position.add(pen_res.multiply(-1))
 }
-//Calculates New Velocity Vectors For Each Ball After Collision
+// Calculates New Velocity Vectors For Each Ball After Collision
 ricochetEffect = (b1, b2) => {
   let normal = b1.position.subtract(b2.position).unit()
   // conservation of momentum broken, lol
   b1.velocity = normal.multiply(b1.mag)
   b2.velocity = normal.multiply(b2.mag).multiply(-1)
 }
-//Event Listeners, their effects, and what they affect//////////////////////////////////////////////////////
+// Event Listeners, their effects, and what they affect//////////////////////////////////////////////////////
 
 // Game Start////////////////////////////////////////////////
 
@@ -316,13 +322,9 @@ const gameInit = () => {
   firstHealth.backgroundColor = 'green'
   gameActive = true
   ball = new slowBall()
-  throwBall()
+  pitcher()
 }
-// Listens For And Reacts To Click On Start Screen
-startButton.addEventListener('click', function () {
-  gameInit()
-})
-// Game Restart Sequence If Win
+// Restart Sequence If Win
 const winRestart = () => {
   ballz.length = 0
   niceJobScreen.display = 'none'
@@ -331,14 +333,10 @@ const winRestart = () => {
   firstHealth.backgroundColor = 'green'
   gameActive = true
   ball = new slowBall()
-  throwBall()
+  pitcher()
 }
-// Listens For And Reacts To Restart Click On Win Screen
-restartButton.addEventListener('click', function () {
-  winRestart()
-})
-// Game Restart If Loss
-restartButton2.addEventListener('click', function () {
+// Restart Sequence If Loss
+const lossRestart = () => {
   ballz.length = 0
   gameOverScreen.display = 'none'
   firstHealth.display = 'block'
@@ -346,11 +344,18 @@ restartButton2.addEventListener('click', function () {
   firstHealth.backgroundColor = 'green'
   gameActive = true
   ball = new slowBall()
-  throwBall()
-})
-// Gameplay////////////////////////////////////////////////////
+  pitcher()
+}
+// Listens For And Reacts To Click On Start Screen
+startButton.addEventListener('click', gameInit)
+// Listens For And Reacts To Restart Click On Win Screen
+restartButton.addEventListener('click', winRestart)
+// Listens For And Reacts To Restart Click On Loss Screen
+restartButton2.addEventListener('click', lossRestart)
+// Gameplay/////////////////////////////////////////////////////
+
 // Key Depression Reaction
-keyDownHandler = (e) => {
+const keyDownHandler = (e) => {
   if (e.key == 'Right' || e.key == 'ArrowRight' || e.key == 'd') {
     rightPressed = true
   } else if (e.key == 'Left' || e.key == 'ArrowLeft' || e.key == 'a') {
@@ -358,14 +363,27 @@ keyDownHandler = (e) => {
   }
 }
 // Key Release Reaction
-keyUpHandler = (e) => {
+const keyUpHandler = (e) => {
   if (e.key == 'Right' || e.key == 'ArrowRight' || e.key == 'd') {
     rightPressed = false
   } else if (e.key == 'Left' || e.key == 'ArrowLeft' || e.key == 'a') {
     leftPressed = false
   }
 }
-//draws the paddle onto the canvas
+const mouseMove = (e) => {
+  if (mouseover === true) {
+    if (e.offsetX > 0 && e.offsetX < canvas.width) {
+      paddleX = e.offsetX - paddleWidth
+    }
+    if (paddleX + paddleWidth * 2 > canvas.width) {
+      paddleX = canvas.width - paddleWidth * 2
+    }
+    if (paddleX < 0) {
+      paddleX = 0
+    }
+  }
+}
+// Draws Paddle Onto Canvas
 drawPaddle = () => {
   context.beginPath()
   context.rect(
@@ -380,7 +398,7 @@ drawPaddle = () => {
   context.fill()
   context.closePath()
 }
-// Moves Paddle According to key depression and release
+// Moves Paddle According To Key Depression And Release
 paddleMovement = () => {
   if (rightPressed) {
     paddleX += 10
@@ -406,23 +424,12 @@ canvas.addEventListener('mouseover', function () {
 canvas.addEventListener('mouseout', function () {
   mouseover = false
 })
-//Tracks Mouse & Moves Paddle Accordingly
-document.addEventListener('mousemove', function (e) {
-  if (mouseover === true) {
-    if (e.offsetX > 0 && e.offsetX < canvas.width) {
-      paddleX = e.offsetX - paddleWidth
-    }
-    if (paddleX + paddleWidth * 2 > canvas.width) {
-      paddleX = canvas.width - paddleWidth * 2
-    }
-    if (paddleX < 0) {
-      paddleX = 0
-    }
-  }
-})
+// Tracks Mouse & Moves Paddle Accordingly
+document.addEventListener('mousemove', mouseMove)
 
-//Animation Function////////////////////////////////////////////////////////////////////////////////////////
+// Animation Function////////////////////////////////////////////////////////////////////////////////////////
 
+// Runs Canvas Animation
 function draw() {
   context.clearRect(0, 0, canvas.width, canvas.height)
   ballz.forEach((b, index) => {
