@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'techno';
+  src: url('/Users/dcd/ga_seir/unit1/projects/js_racquetball/xirod/xirod.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
 html {
   margin: 0px;
   height: 100%;
@@ -17,6 +23,7 @@ body {
   background-image: url(./WOW.gif);
   background-size: contain;
   color: white;
+  font-family: techno;
 }
 
 /* First Flexbox//////////////////////////////////////////////////////////////////// */
@@ -32,9 +39,10 @@ header {
   justify-content: center;
   align-items: flex-end;
 
-  -webkit-text-stroke: white 2px;
-  -webkit-text-fill-color: rgba(255, 255, 255, 0);
-  font-size: 80px;
+  /* -webkit-text-stroke: white 2px;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0); */
+  text-shadow: 5px, white;
+  font-size: 60px;
   height: 50%;
 }
 /* Health Bar */
@@ -106,7 +114,7 @@ header {
   height: 480px;
   width: 640px;
   background-color: rgba(0, 0, 0, 0.863);
-  border: 1px solid rgb(0, 0, 255);
+  border: 1px solid blue;
 }
 .message > h1 {
   font-size: 50px;
@@ -130,12 +138,6 @@ header {
   display: block;
   background: rgba(218, 231, 255, 0.85);
 }
-/* #canvasTwo {
-  position: absolute;
-  border: 1px solid blue;
-  display: block;
-  background: rgba(218, 231, 255, 0.85);
-} */
 
 /* Levels */
 #levels {
