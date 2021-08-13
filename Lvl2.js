@@ -376,15 +376,14 @@ wallCollision = (i) => {
             ballz[i].r +
             ballz[i].position.y
           ballz[i].velocity.y = -ballz[i].velocity.y
-          if (ballz[i].mag === 3) {
-            if (medBall) {
-              playerScore += 20
-              updateScore()
-            }
-            if (slowBall) {
-              playerScore += 10
-              updateScore()
-            }
+          if (ballz[i].r === 20) {
+            console.log('1')
+            playerScore += 20
+            updateScore()
+          }
+          if (ballz[i].r === 30) {
+            playerScore += 10
+            updateScore()
           }
         } else {
           ballFallz.push('1')
