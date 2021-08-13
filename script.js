@@ -248,8 +248,8 @@ wallCollision = (i) => {
     }
     if (gameActive) {
       if (
-        ballz[i].position.y + ballz[i].r + 1 > canvas.height - paddleHeight ||
-        ballz[i].position.y + ballz[i].r + 1 > canvas.height
+        ballz[i].position.y + ballz[i].r > canvas.height - paddleHeight ||
+        ballz[i].position.y + ballz[i].r > canvas.height
       )
         if (
           ballz[i].position.x > paddleX - ballz[i].r &&
