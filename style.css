@@ -205,3 +205,6 @@ header {
   padding-left: 123px;
   height: 340px;
 }
+a {
+  color: rgb(0, 110, 0);
+}
