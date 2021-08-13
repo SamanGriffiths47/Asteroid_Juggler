@@ -97,12 +97,6 @@ class slowBall {
   }
   //draws ball onto the canvas
   drawBall() {
-    // context.beginPath()
-    // context.arc(this.position.x, this.position.y, this.r, 0, Math.PI * 2)
-    // context.strokeStyle = `black`
-    // context.stroke()
-    // context.fillStyle = `blue`
-    // context.fill()
     context.drawImage(
       redAsteroid,
       this.width * this.frameX,
@@ -168,12 +162,6 @@ class medBall {
   }
   //draws ball onto the canvas
   drawBall() {
-    // context.beginPath()
-    // context.arc(this.position.x, this.position.y, this.r, 0, Math.PI * 2)
-    // context.strokeStyle = `black`
-    // context.stroke()
-    // context.fillStyle = `blue`
-    // context.fill()
     context.drawImage(
       redAsteroid,
       this.width * this.frameX,
