@@ -23,8 +23,8 @@ let mouseover = false
 let playerScore = 0
 
 let bestScores = [
-  { name: 'Smitty Werbenjagermanjensen', score: 640 },
-  { name: 'Sheldon Dinkleberg', score: 410 },
+  { name: 'Bestof Thabest', score: 640 },
+  { name: 'Pretty Darngood', score: 410 },
   { name: 'Meg Griffin', score: 3 }
 ]
 
@@ -109,10 +109,10 @@ class slowBall {
       this.height * this.frameY,
       this.width,
       this.height,
-      this.position.x - this.r * 1.05,
-      this.position.y - this.r * 1.05,
-      this.r * 2.1,
-      this.r * 2.1
+      this.position.x - this.r * 1.1,
+      this.position.y - this.r * 1.1,
+      this.r * 2.3,
+      this.r * 2.3
     )
   }
   // Generates A Random Integer For X Component Of Velocity
@@ -248,11 +248,11 @@ const gameOver = () => {
 // Reacts To Turn Losses
 const threeStrikes = () => {
   if (ballFallz.length === 1) {
-    firstHealth.width = `${500 * (2 / 3)}px`
+    firstHealth.width = `${600 * (2 / 3)}px`
     firstHealth.backgroundColor = 'yellow'
   }
   if (ballFallz.length === 2) {
-    firstHealth.width = `${500 * (1 / 3)}px`
+    firstHealth.width = `${600 * (1 / 3)}px`
     firstHealth.backgroundColor = 'red'
   }
   if (ballFallz.length >= 3) {
@@ -351,7 +351,7 @@ ricochetEffect = (b1, b2) => {
 const gameInit = () => {
   ballz.length = 0
   StartScreen.display = 'none'
-  firstHealth.width = `${500}px`
+  firstHealth.width = `${600}px`
   firstHealth.backgroundColor = 'green'
   gameActive = true
   ball = new slowBall()
@@ -362,7 +362,7 @@ const winRestart = () => {
   ballz.length = 0
   niceJobScreen.display = 'none'
   firstHealth.display = 'block'
-  firstHealth.width = `${500}px`
+  firstHealth.width = `${600}px`
   firstHealth.backgroundColor = 'green'
   gameActive = true
   ball = new slowBall()
@@ -373,7 +373,7 @@ const lossRestart = () => {
   ballz.length = 0
   gameOverScreen.display = 'none'
   firstHealth.display = 'block'
-  firstHealth.width = `${500}px`
+  firstHealth.width = `${600}px`
   firstHealth.backgroundColor = 'green'
   gameActive = true
   ball = new slowBall()

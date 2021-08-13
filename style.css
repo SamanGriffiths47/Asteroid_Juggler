@@ -1,4 +1,10 @@
 @font-face {
+  font-family: 'math';
+  src: url('/Users/dcd/ga_seir/unit1/projects/js_racquetball/00-starmap/00TT.TTF');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
   font-family: 'techno';
   src: url('/Users/dcd/ga_seir/unit1/projects/js_racquetball/xirod/xirod.ttf');
   font-weight: normal;
@@ -14,7 +20,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  justify-content: space-between;
   justify-content: stretch;
 
   margin: 0px;
@@ -22,8 +27,9 @@ body {
   height: 100%;
   background-image: url(./WOW.gif);
   background-size: contain;
-  color: white;
-  font-family: techno;
+  color: rgb(0, 110, 0);
+  font-family: math;
+  overflow: hidden;
 }
 
 /* First Flexbox//////////////////////////////////////////////////////////////////// */
@@ -39,10 +45,10 @@ header {
   justify-content: center;
   align-items: flex-end;
 
-  /* -webkit-text-stroke: white 2px;
-  -webkit-text-fill-color: rgba(255, 255, 255, 0); */
-  text-shadow: 5px, white;
+  -webkit-text-stroke: rgb(0, 110, 0) 2px;
+  color: white;
   font-size: 60px;
+  font-family: techno;
   height: 50%;
 }
 /* Health Bar */
@@ -55,16 +61,14 @@ header {
 }
 #healthDisplay {
   display: grid;
-  /* grid-template-columns: 3 1/3; */
   margin-bottom: 20px;
   border: 1px solid white;
   height: 20px;
-  width: 500px;
+  width: 600px;
 }
 #firstHealth {
   width: 1px;
   height: 20px;
-  /* background-color: rgba(0, 128, 0, 0); */
   transition: 3s;
 }
 #secondHealth {
@@ -75,41 +79,82 @@ header {
 
 /* Second FlexBox////////////////////////////////////////////////////////////////////// */
 #fbTwo {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 1fr 648px 1fr;
+  grid-template-rows: 1fr;
   height: 60%;
   width: 100%;
 }
-/* Score Display */
+
+/* Score Display /////////////////////////////////////////////////////////////////*/
 #scores {
-  width: 25%;
-  height: inherit;
+  grid-area: 1/1/2/2;
+  height: 482px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+#scoreDisplay {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  font-size: 30px;
+  padding-left: 5px;
+  padding-right: 5px;
+  height: 340px;
+  background-color: rgba(31, 31, 31, 0.555);
+  border: 7px solid rgba(7, 7, 7, 0.719);
+}
+#playerScore {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding-left: 12px;
+}
+#scoreDisplay > h1 {
+  padding-left: 12px;
+  margin-bottom: 15px;
+  margin-top: 50px;
+}
+#scoreboard {
+  list-style: none;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  font-size: 30px;
+  margin: 0;
+  padding: 0;
+}
+#scoreboard > li {
+  padding: 10px;
 }
 
 /* Game Screen */
 #game-screen {
-  align-self: flex-end;
+  grid-area: 1/2/2/3;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  width: 50%;
-  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr 480px 1fr;
+  grid-template-columns: 1fr;
+  width: 642px;
+  height: 60%;
+}
+#messageContain {
+  grid-area: 2/1/3/2;
+  position: absolute;
+}
+#canvasContain {
+  grid-area: 2/1/3/2;
 }
 /* Player Messages Screens */
 .message {
-  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   position: absolute;
+  box-shadow: 5px, 5px, 10px, 10px, red;
 
   height: 480px;
   width: 640px;
@@ -133,7 +178,7 @@ header {
   display: flex;
 }
 #canvas {
-  position: absolute;
+  /* position: absolute; */
   border: 1px solid blue;
   display: block;
   background: rgba(218, 231, 255, 0.85);
@@ -141,10 +186,22 @@ header {
 
 /* Levels */
 #levels {
-  width: 25%;
-  height: inherit;
+  height: 482px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  height: 482px;
+}
+#levels > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 30px;
+  background-color: rgba(31, 31, 31, 0.555);
+  border: 7px solid rgba(7, 7, 7, 0.719);
+  padding-right: 123px;
+  padding-left: 123px;
+  height: 340px;
 }
