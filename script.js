@@ -1,5 +1,7 @@
 const ballz = []
 const ballFallz = []
+const redAsteroid = new Image()
+redAsteroid.src = './Asteroids/Asteroid.png'
 const scoreNeeded = 350
 const paddleHeight = 10
 const paddleWidth = 150
@@ -19,6 +21,7 @@ let leftPressed = false
 let gameActive = false
 let mouseover = false
 let playerScore = 0
+
 let bestScores = [
   { name: 'Smitty Werbenjagermanjensen', score: 640 },
   { name: 'Sheldon Dinkleberg', score: 410 },
@@ -86,16 +89,31 @@ class slowBall {
     this.vx = this.randomX(this.mag)
     this.vy = this.randomY(this.vx, this.mag)
     this.velocity = new Vector(this.vx, this.vy)
+    this.height = 89
+    this.width = 89
+    this.frameX = 0
+    this.frameY = 0
     ballz.push(this)
   }
   //draws ball onto the canvas
   drawBall() {
-    context.beginPath()
-    context.arc(this.position.x, this.position.y, this.r, 0, Math.PI * 2)
-    context.strokeStyle = `black`
-    context.stroke()
-    context.fillStyle = `blue`
-    context.fill()
+    // context.beginPath()
+    // context.arc(this.position.x, this.position.y, this.r, 0, Math.PI * 2)
+    // context.strokeStyle = `black`
+    // context.stroke()
+    // context.fillStyle = `blue`
+    // context.fill()
+    context.drawImage(
+      redAsteroid,
+      this.width * this.frameX,
+      this.height * this.frameY,
+      this.width,
+      this.height,
+      this.position.x - this.r * 1.05,
+      this.position.y - this.r * 1.05,
+      this.r * 2.1,
+      this.r * 2.1
+    )
   }
   // Generates A Random Integer For X Component Of Velocity
   //This Way, Balls Can Be Thrown At Random Angle With The Same Speed
@@ -118,7 +136,22 @@ class slowBall {
   move() {
     this.position = this.position.add(this.velocity)
   }
+  spin() {
+    if (this.frameX < 19) {
+      this.frameX += 1
+    } else if (this.frameX === 19 && this.frameY === 0) {
+      this.frameX = 0
+      this.frameY += 1
+    } else if (this.frameX === 19 && this.frameY === 1) {
+      this.frameX = 0
+      this.frameY += 1
+    } else if (this.frameX === 19 && this.frameY === 2) {
+      this.frameX = 0
+      this.frameY = 0
+    }
+  }
 }
+
 // Ball Creation//////////////////////////////////////////////////////////////////////////////////////////////
 
 // When Game Is Active, Balls Are released at 6sec Intervals
@@ -130,7 +163,7 @@ const pitcher = () => {
     } else {
       clearInterval(throwBall)
     }
-  }, 6000)
+  }, 5000)
 }
 
 // Limits Ball Creation To 4 When Game Is Inactive
@@ -141,7 +174,7 @@ const pitcher2 = () => {
     } else {
       clearInterval(throwBall2)
     }
-  }, 6000)
+  }, 5000)
 }
 pitcher2()
 // Scoring//////////////////////////////////////////////////////////////////////////////////////////////////
@@ -430,11 +463,13 @@ document.addEventListener('mousemove', mouseMove)
 // Animation Function////////////////////////////////////////////////////////////////////////////////////////
 
 // Runs Canvas Animation
+
 function draw() {
   context.clearRect(0, 0, canvas.width, canvas.height)
   ballz.forEach((b, index) => {
     b.drawBall()
     b.move()
+    b.spin()
     wallCollision(index)
     for (let i = index + 1; i < ballz.length; i++) {
       if (ballOnBallCollision(ballz[index], ballz[i])) {
