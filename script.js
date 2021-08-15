@@ -207,7 +207,7 @@ const updateScore = () => {
 
 // Game Win Sequence
 const Win = () => {
-  document.getElementById('lvlTwo').href = './Lvl2.html'
+  document.getElementById('lvlTwo').setAttribute('href', './lvl2.html')
   ballFallz.length = 0
   finalScore = new Score(playerScore)
   finalScore.addScore()
