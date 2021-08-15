@@ -281,8 +281,8 @@ wallCollision = (i) => {
         ballz[i].position.y + ballz[i].r > canvas.height
       )
         if (
-          ballz[i].position.x > paddleX - ballz[i].r &&
-          ballz[i].position.x < paddleX + paddleWidth * 2 + ballz[i].r
+          ballz[i].position.x > paddleX - ballz[i].r / 3 &&
+          ballz[i].position.x < paddleX + paddleWidth * 2 + ballz[i].r / 3
         ) {
           ballz[i].position.y =
             canvas.height -
@@ -349,6 +349,7 @@ const gameInit = () => {
   StartScreen.display = 'none'
   firstHealth.width = `${600}px`
   firstHealth.backgroundColor = 'green'
+  document.getElementById(`stamina`).style.display = 'block'
   gameActive = true
   ball = new slowBall()
   pitcher()

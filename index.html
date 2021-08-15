@@ -12,7 +12,7 @@
     <header>Asteroid Juggler</header>
     <div id='healthContainer'>
       <section>
-        <div id='secondHealth'>Stamina</div>
+        <div id='stamina'>Stamina</div>
         <div id='healthDisplay'>
         <div id='firstHealth'></div>
       </section>
@@ -28,6 +28,32 @@
         </ul>
       </div>
     </article>
+    <article id='rightArticle'>
+      <div id="rightScreen">
+        <article id='instructions'>
+          <h1>Instructions</h1>
+          <h4>Bar Controls:</h6>
+            <ul>
+              <li>Use the either the Left Arrow or "A" key to move left.</li>
+              <li>Use either the Right Arrow or "D" key to move Right</li>
+              <li>The mouse can also be used for movement. Simply, hover over the arena and play :)</li>
+            </ul>
+          <h4>Rules:</h6>
+          <p>
+            The object of the game is to keep the asteroids off of the ground by rebounding them 
+            with the bar. You have only enough stamina to drop three asteroids before the game 
+            ends. Your Points will be displayed on the screen to the left of the arena.
+          </p>
+            <p>Have Fun!</p>
+          </article>
+          </div>
+          <div id="lvls">
+            <button id="lvlOne">Level 1</button>
+            <button id="lvlTwo">Level 2</button>
+            <button id="lvlThree">Level 3</button>
+          </div>
+          <img src="./images/n706297.jpg" alt="Control Panel">
+    </article>
     <div id='game-screen'>
       <div id='canvasContain'>
         <canvas id="canvas" tabindex=0 width="640px" height="480px"></canvas>
@@ -38,13 +64,6 @@
         <div class='message' id='gameOver'><h1 id='GO'>Game Over</h1><p id='restartTwo'>restart</p></div>
       </div>
     </div>
-    <article id='levels'>
-      <div>
-        <h1><a href="./index.html"></a>Level 1</h1>
-        <h1>Level 2</h1>
-        <h1>Level 3</h1>
-      </div>
-    </article>
   </section>
 
   <script src="./script.js"></script>

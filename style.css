@@ -1,21 +1,22 @@
+/* Text Import /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 @font-face {
   font-family: 'math';
-  src: url('/Users/dcd/ga_seir/unit1/projects/js_racquetball/00-starmap/00TT.TTF');
+  src: url('./00-starmap/00TT.TTF');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'techno';
-  src: url('/Users/dcd/ga_seir/unit1/projects/js_racquetball/xirod/xirod.ttf');
+  src: url('./xirod/xirod.ttf');
   font-weight: normal;
   font-style: normal;
 }
+/* Full Page /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 html {
   margin: 0px;
   height: 100%;
   width: 100%;
 }
-
 body {
   display: flex;
   flex-direction: column;
@@ -25,44 +26,47 @@ body {
   margin: 0px;
   width: auto;
   height: 100%;
-  background-image: url(./WOW.gif);
+  background-image: url(./images/WOW.gif);
   background-size: contain;
   color: rgb(0, 110, 0);
   font-family: math;
   overflow: hidden;
 }
-
-/* First Flexbox//////////////////////////////////////////////////////////////////// */
+/* First Flexbox /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 #fbOne {
   display: flex;
   flex-direction: column;
+
   height: 40%;
 }
 /* Title */
 header {
-  justify-self: start;
-  display: flex;
   justify-content: center;
   align-items: flex-end;
+  justify-self: start;
+  display: flex;
 
-  -webkit-text-stroke: rgb(0, 110, 0) 2px;
+  height: 50%;
   color: white;
   font-size: 60px;
   font-family: techno;
-  height: 50%;
+  -webkit-text-stroke: blue 3px;
+  text-shadow: 0 0 80px rgba(0, 0, 255, 0.911);
 }
-/* Health Bar */
+/* Health Display /*/
 #healthContainer {
-  flex-direction: column;
   display: flex;
+  flex-direction: column;
   justify-content: flex-end;
   align-items: center;
+
   height: 50%;
 }
 #healthDisplay {
   display: grid;
+
   margin-bottom: 20px;
-  border: 1px solid white;
+  margin-top: 10px;
   height: 20px;
   width: 600px;
 }
@@ -71,13 +75,15 @@ header {
   height: 20px;
   transition: 3s;
 }
-#secondHealth {
+#stamina {
+  display: none;
   justify-self: baseline;
+
   font-size: 25px;
   margin-right: 35%;
 }
 
-/* Second FlexBox////////////////////////////////////////////////////////////////////// */
+/* Second FlexBox//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */
 #fbTwo {
   display: grid;
   grid-template-columns: 1fr 648px 1fr;
@@ -86,24 +92,26 @@ header {
   width: 100%;
 }
 
-/* Score Display /////////////////////////////////////////////////////////////////*/
+/* Score Display/////////////////////////////////////////////////////////*/
 #scores {
-  grid-area: 1/1/2/2;
-  height: 482px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  grid-area: 1/1/2/2;
+
+  height: 482px;
 }
 #scoreDisplay {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
+
+  height: 340px;
   font-size: 30px;
   padding-left: 5px;
   padding-right: 5px;
-  height: 340px;
   background-color: rgba(31, 31, 31, 0.555);
   border: 7px solid rgba(7, 7, 7, 0.719);
 }
@@ -111,6 +119,7 @@ header {
   display: flex;
   justify-content: left;
   align-items: center;
+
   padding-left: 12px;
 }
 #scoreDisplay > h1 {
@@ -119,10 +128,11 @@ header {
   margin-top: 50px;
 }
 #scoreboard {
-  list-style: none;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
+
+  list-style: none;
   font-size: 30px;
   margin: 0;
   padding: 0;
@@ -130,36 +140,39 @@ header {
 #scoreboard > li {
   padding: 10px;
 }
-
-/* Game Screen */
+/* Game Screen ///////////////////////////////////////////////////*/
 #game-screen {
-  grid-area: 1/2/2/3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   position: relative;
-  display: grid;
-  grid-template-rows: 1fr 480px 1fr;
-  grid-template-columns: 1fr;
-  width: 642px;
-  height: 60%;
-}
-#messageContain {
-  grid-area: 2/1/3/2;
-  position: absolute;
+  grid-area: 1/2/2/3;
+  height: 100%;
+  width: 648px;
 }
 #canvasContain {
-  grid-area: 2/1/3/2;
+  /* grid-area: 2/1/3/2; */
+}
+#canvas {
+  border: 2px solid blue;
+  box-shadow: 0 0 80px rgba(0, 0, 255, 0.37);
+  display: block;
+  background: rgba(218, 231, 255, 0.63);
+  /* box-shadow: 0 0 80px rgba(0, 110, 0, 0.37); */
 }
 /* Player Messages Screens */
+#messageContain {
+  position: absolute;
+}
 .message {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  position: absolute;
-  box-shadow: 5px, 5px, 10px, 10px, red;
 
   height: 480px;
   width: 640px;
   background-color: rgba(0, 0, 0, 0.863);
-  border: 1px solid blue;
 }
 .message > h1 {
   font-size: 50px;
@@ -177,33 +190,140 @@ header {
 #start {
   display: flex;
 }
-#canvas {
-  /* position: absolute; */
-  border: 1px solid blue;
-  display: block;
-  background: rgba(218, 231, 255, 0.85);
-}
 
-/* Levels */
-#levels {
-  height: 482px;
+/* Levels ////////////////////////////////////////////////////*/
+#rightArticle {
+  align-self: center;
+  justify-self: center;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  height: 482px;
+
+  grid-area: 1/3/2/4;
+  max-width: 500px;
+  height: 488px;
+  margin-left: 5%;
+  margin-right: 5%;
+  border-radius: 3%;
+  background-color: rgb(7, 7, 7);
+  /* margin-top: 12%; */
+  /* margin-bottom: 12.5%; */
 }
-#levels > div {
+#rightArticle > div {
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 5px;
+
+  /*
   flex-direction: column;
   font-size: 30px;
   background-color: rgba(31, 31, 31, 0.555);
   border: 7px solid rgba(7, 7, 7, 0.719);
   padding-right: 123px;
   padding-left: 123px;
-  height: 340px;
+  height: 340px; */
+}
+/* Screen Display //////////////////////////*/
+#rightScreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 30%;
+  padding: 12px;
+  margin: 5%;
+  background-color: rgb(31, 31, 31);
+  background-color: rgb(184, 181, 181);
+}
+#instructions {
+  text-align: left;
+  height: 100%;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+  margin: 0;
+}
+#instructions::-webkit-scrollbar {
+  width: 10px;
+}
+#instructions::-webkit-scrollbar-track {
+  background: rgb(218, 218, 218);
+}
+#instructions::-webkit-scrollbar-button {
+  width: 16px;
+}
+#instructions::-webkit-scrollbar-thumb {
+  /* border-radius: 5px; */
+  background: gray;
+  border: 2px solid rgb(218, 218, 218);
+}
+#instructions > * {
+  margin: 0;
+}
+#instructions > h1 {
+  text-align: center;
+}
+#instructions > h4 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+#instructions > ul {
+  padding-left: 20px;
+  list-style: square;
+}
+#instructions > p {
+  margin: 5px;
+}
+#instructions > :last-child {
+  text-align: center;
+  font-size: 18px;
+}
+#lvls {
+  margin: 1%;
+  height: 0px;
+  width: 100%;
+}
+button {
+  margin: 7%;
+  text-align: center;
+  box-shadow: 2px 2px 0px 0px rgb(107, 13, 13);
+  background: linear-gradient(
+    to bottom,
+    rgb(161, 30, 30) 5%,
+    rgb(241, 66, 66) 100%
+  );
+  background-color: rgb(161, 30, 30);
+  border-radius: 18px;
+  border: 1px solid rgb(161, 30, 30);
+  display: inline-block;
+  cursor: pointer;
+  color: rgb(212, 212, 212);
+  text-decoration: none;
+  text-shadow: 0px 1px 0px rgb(99, 99, 99);
+}
+button:hover {
+  background: linear-gradient(
+    to bottom,
+    rgb(241, 66, 66) 5%,
+    rgb(161, 30, 30) 100%
+  );
+  background-color: rgb(241, 66, 66);
+}
+button:active {
+  position: relative;
+  top: 2px;
+  left: 2px;
+  box-shadow: 0 0 0 0 rgb(107, 13, 13);
+}
+#rightArticle > img {
+  /* margin: 5%; */
+  height: 49%;
+  width: 90%;
+  border-radius: 5px;
+  margin: 5%;
 }
 a {
   color: rgb(0, 110, 0);
