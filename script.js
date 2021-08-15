@@ -2,7 +2,7 @@ const ballz = []
 const ballFallz = []
 const redAsteroid = new Image()
 redAsteroid.src = './Asteroids/Asteroid.png'
-const scoreNeeded = 350
+const scoreNeeded = 250
 const paddleHeight = 10
 const paddleWidth = 150
 const canvas = document.getElementById('canvas')
@@ -14,7 +14,7 @@ const gameOverScreen = document.getElementById('gameOver').style
 const niceJobScreen = document.getElementById('niceJob').style
 const restartButton2 = document.getElementById('restartTwo')
 const startButton = document.getElementById('startButton')
-let scoreDisplay = document.getElementById('playerScore')
+let scoreDisplay = document.getElementById('leftScreenTop')
 let paddleX = (canvas.width - paddleWidth * 2) / 2
 let rightPressed = false
 let leftPressed = false
@@ -207,8 +207,7 @@ const updateScore = () => {
 
 // Game Win Sequence
 const Win = () => {
-  document.querySelectorAll('#levels h1')[1].innerHTML =
-    '<a class="button" href="./Lvl2.html">Level 2</a>'
+  document.getElementById('lvlTwo').href = './Lvl2.html'
   ballFallz.length = 0
   finalScore = new Score(playerScore)
   finalScore.addScore()
