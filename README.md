@@ -1,5 +1,5 @@
 <div style = 'text-align: center;'><img src="./images/gamePlayScreenshot.png" alt="Logos"
-	title="Language Logos" width="100%" height="160"/></div>
+	title="Language Logos" width="100%" height="100%"/></div>
 
 <div style='text-align: center;'><h1><b>Astroid Juggler</b></h1></div>
 
