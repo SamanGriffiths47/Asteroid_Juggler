@@ -100,7 +100,7 @@ header {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 90.25%;
+  width: 90%;
   grid-area: 1/1/2/2;
   max-width: 500px;
   height: 488px;
@@ -142,7 +142,6 @@ header {
 }
 #score {
   text-align: left;
-  /* padding: 12px; */
 }
 #score > h1 {
   font-size: 25px;
@@ -152,7 +151,7 @@ header {
 #ccc {
   height: 39%;
   border-radius: 5px;
-  width: 87.5%;
+  width: 89%;
   margin: 0;
   padding: 0;
 }

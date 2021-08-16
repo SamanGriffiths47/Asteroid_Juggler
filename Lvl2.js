@@ -2,7 +2,7 @@ const ballz = []
 const ballFallz = []
 const redAsteroid = new Image()
 redAsteroid.src = './Asteroids/Asteroid.png'
-const scoreNeeded = 700
+const scoreNeeded = 600
 const paddleHeight = 10
 const paddleWidth = 150
 const canvas = document.getElementById('canvas')
@@ -14,18 +14,17 @@ const gameOverScreen = document.getElementById('gameOver').style
 const niceJobScreen = document.getElementById('niceJob').style
 const restartButton2 = document.getElementById('restartTwo')
 const startButton = document.getElementById('startButton')
-let scoreDisplay = document.getElementById('playerScore')
+let scoreDisplay = document.getElementById('leftScreenTop')
 let paddleX = (canvas.width - paddleWidth * 2) / 2
 let rightPressed = false
 let leftPressed = false
 let gameActive = false
 let mouseover = false
 let playerScore = 0
-
 let bestScores = [
-  { name: 'Bestof Thabest', score: 1530 },
-  { name: 'Pretty Darngood', score: 1110 },
-  { name: 'Dinkleberg', score: 770 }
+  { name: 'Sheldon Dinkleberg', score: 1030 },
+  { name: 'Ricky Bobby', score: 670 },
+  { name: 'Meg Griffin', score: 5 }
 ]
 
 // Classes///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -145,7 +144,6 @@ class slowBall {
     }
   }
 }
-
 class medBall {
   constructor() {
     this.r = 20
@@ -220,11 +218,10 @@ const pitcher = () => {
     if (gameActive) {
       if (counter === 0) {
         new slowBall()
-        ++counter
+        counter++
       } else if (counter === 1) {
-        console.log('1')
         new medBall()
-        --counter
+        counter = 0
       }
     } else {
       clearInterval(throwBall)
@@ -279,8 +276,9 @@ const updateScore = () => {
 
 // Game Win Sequence
 const Win = () => {
-  document.querySelectorAll('#levels h1')[1].innerHTML =
-    '<a class="button" href="./Lvl2.html">Level 2</a>'
+  document
+    .getElementById('lvlThree')
+    .setAttribute('onclick', "location.href='./lvl3.html'")
   ballFallz.length = 0
   finalScore = new Score(playerScore)
   finalScore.addScore()
@@ -356,21 +354,14 @@ wallCollision = (i) => {
           ballz[i].position.x > paddleX - ballz[i].r / 3 &&
           ballz[i].position.x < paddleX + paddleWidth * 2 + ballz[i].r / 3
         ) {
-          ballz[i].position.y =
-            canvas.height -
-            paddleHeight -
-            1 -
-            ballz[i].position.y -
-            ballz[i].r +
-            ballz[i].position.y
+          ballz[i].position.y = canvas.height - paddleHeight - 1 - ballz[i].r
           ballz[i].velocity.y = -ballz[i].velocity.y
-          if (ballz[i].r === 20) {
-            console.log('1')
-            playerScore += 20
+          if (ballz[i].mag === 3) {
+            playerScore += 10
             updateScore()
           }
-          if (ballz[i].r === 30) {
-            playerScore += 10
+          if (ballz[i].mag === 4.5) {
+            playerScore += 20
             updateScore()
           }
         } else {

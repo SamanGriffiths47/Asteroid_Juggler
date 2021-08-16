@@ -20,33 +20,56 @@
   </div>
   </section>
   <section id='fbTwo'>
-    <article id='scores'>
-      <div id='scoreDisplay'>
-        <div id='playerScore'>Your Score: 0</div>
-        <h1>Best Scores</h1> 
-        <ul id='scoreboard'>
-        </ul>
+    <article id='leftArticle'>
+        <div id='leftScreenTop'>Your Score: 0</div>
+        <img id="ccc" src="./images/n706396.png" alt="control panel">
+        <div id='leftScreenBottom'>
+          <article id="score">
+          <h1>Best Scores</h1>
+          <ol id='scoreboard'>
+          </ol>
+        </article>
       </div>
+    </article>
+
+    <article id='rightArticle'>
+      <div id="rightScreen">
+        <article id='instructions'>
+          <h1>Instructions</h1>
+          <h4>Bar Controls:</h6>
+            <ul>
+              <li>Use the either the Left Arrow or "A" key to move left.</li>
+              <li>Use either the Right Arrow or "D" key to move Right</li>
+              <li>The mouse can also be used for movement. Simply, hover over the arena and play :)</li>
+            </ul>
+          <h4>Rules:</h6>
+          <p>
+            The object of the game is to keep the asteroids off of the ground by rebounding them 
+            with the bar. You have only enough stamina to drop three asteroids before the game 
+            ends. Your Points will be displayed on the screen to the left of the arena.
+          </p>
+            <p>Have Fun!</p>
+          </article>
+          </div>
+          <div id="lvls">
+            <button onclick="location.href='./index.html'" id="lvlOne">Level 1</button>
+            <button onclick="location.href='./lvl2.html'" id="lvlTwo">Level 2</button>
+            <button id="lvlThree">Level 3</button>
+          </div>
+          <img src="./images/n706297.jpg" alt="Control Panel">
     </article>
     <div id='game-screen'>
       <div id='canvasContain'>
         <canvas id="canvas" tabindex=0 width="640px" height="480px"></canvas>
       </div>
       <div id='messageContain'> 
-        <div class='message' id='start'><h1 id="startButton">Start</h1><p>(You Need 700 Points To Move On)</p></div>
+        <div class='message' id='start'> <h2>LvL 2</h2> <h1 id="startButton">Start</h1><p>(You Need 600 Points To Move On)</p></div>
         <div class='message' id='niceJob'><h1 id='nice'>Nice Job!</h1><p id='moveOn'>Click Level 2 To Move On</p><p id='restart'>restart</p></div>
         <div class='message' id='gameOver'><h1 id='GO'>Game Over</h1><p id='restartTwo'>restart</p></div>
       </div>
     </div>
-    <article id='levels'>
-      <div>
-        <h1><a href="./index.html">Level 1</a></h1>
-        <h1><a href="./Lvl2.html"></a>Level 2</h1>
-        <h1>Level 3</h1>
-      </div>
-    </article>
   </section>
 
-  <script src="./Lvl2.js"></script>
+  <script src="./lvl2.js"></script>
 </body>
 </html>
