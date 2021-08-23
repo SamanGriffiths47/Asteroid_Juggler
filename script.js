@@ -1,7 +1,7 @@
 const ballz = []
 const ballFallz = []
 const redAsteroid = new Image()
-redAsteroid.src = './Asteroids/Asteroid.png'
+redAsteroid.src = '/asteroids/Asteroid.png'
 const scoreNeeded = 300
 const paddleHeight = 10
 const paddleWidth = 150
