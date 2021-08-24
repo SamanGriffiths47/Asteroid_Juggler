@@ -1,7 +1,7 @@
 const ballz = []
 const ballFallz = []
 const redAsteroid = new Image()
-redAsteroid.src = './Asteroids/Asteroid.png'
+redAsteroid.src = '/asteroids/Asteroid.png'
 const scoreNeeded = 600
 const paddleHeight = 10
 const paddleWidth = 150
@@ -278,7 +278,7 @@ const updateScore = () => {
 const Win = () => {
   document
     .getElementById('lvlThree')
-    .setAttribute('onclick', "location.href='./lvl3.html'")
+    .setAttribute('onclick', "location.href='/lvl3.html'")
   ballFallz.length = 0
   finalScore = new Score(playerScore)
   finalScore.addScore()

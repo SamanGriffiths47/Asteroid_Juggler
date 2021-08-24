@@ -208,7 +208,7 @@ const updateScore = () => {
 const Win = () => {
   document
     .getElementById('lvlTwo')
-    .setAttribute('onclick', "location.href='./lvl2.html'")
+    .setAttribute('onclick', "location.href='/lvl2.html'")
   ballFallz.length = 0
   finalScore = new Score(playerScore)
   finalScore.addScore()
