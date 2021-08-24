@@ -4,7 +4,7 @@
 
 <h1><b>Astroid Juggler</b><br></h1>
 <h3>Designed and Executed by Sam'an Griffiths <br> :triangular_ruler: :memo: :computer: :hourglass_flowing_sand:</h3>
-<a href='https://www.linkedin.com/in/saman-griffiths/' target="_blank">Connect On LinkedIn</a> | <a href='Asteroid_Juggler.surge.sh' target="_blank">Play The Game :joystick:</a> 
+<a href='https://www.linkedin.com/in/saman-griffiths/' target="_blank">Connect On LinkedIn</a> | <a href='https://asteroid_juggler.surge.sh/' target="_blank">Play The Game :joystick:</a> 
 
 
 ---
