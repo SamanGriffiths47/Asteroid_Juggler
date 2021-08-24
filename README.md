@@ -4,6 +4,7 @@
 
 <h1><b>Astroid Juggler</b><br></h1>
 <h3>Designed and Executed by Sam'an Griffiths <br> :triangular_ruler: :memo: :computer: :hourglass_flowing_sand:</h3>
+<a href='https://www.linkedin.com/in/saman-griffiths/' target="_blank">Connect On LinkedIn</a> | <a href='Asteroid_Juggler.surge.sh' target="_blank">Play The Game :joystick:</a> 
 
 
 ---
@@ -19,7 +20,7 @@ height='40px'/>
 
 <h3>:raised_hands: Honorable Mentions :raised_hands:</h3>
 
-<a href="https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript" target="_top">Game Logic Basis</a> | <a href="https://www.youtube.com/playlist?list=PLo6lBZn6hgca1T7cNZXpiq4q395ljbEI_" target="_top">Ball Physics Basis</a> | <a href="http://clipart-library.com/control-panel-cliparts.html" target="_top">Control Panel</a> | <a href="http://nafcflying.org/documents.html" target="_top">Flight Sim</a> | <a href="https://gifer.com/en/IrF" target="_top">Background</a>
+<a href="https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript" target="_blank">Game Logic Basis</a> | <a href="https://www.youtube.com/playlist?list=PLo6lBZn6hgca1T7cNZXpiq4q395ljbEI_" target="_blank">Ball Physics Basis</a> | <a href="http://clipart-library.com/control-panel-cliparts.html" target="_blank">Control Panel</a> | <a href="http://nafcflying.org/documents.html" target="_blank">Flight Sim</a> | <a href="https://gifer.com/en/IrF" target="_blank">Background</a>
 <h3> Thank You To Everyone Who Had A Hand In Creating This Content
 ! <h3>
 </div>
