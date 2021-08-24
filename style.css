@@ -235,6 +235,7 @@ header {
 
 /* Right Display ////////////////////////////////////////////////////*/
 #rightArticle {
+  position: relative;
   align-self: center;
   justify-self: center;
   display: flex;
@@ -367,4 +368,31 @@ button:active {
   width: 90%;
   border-radius: 5px;
   margin: 5%;
+}
+.volume {
+  position: absolute;
+  grid-template-areas: 1fr/1fr;
+  height: 50px;
+  width: 50px;
+  margin-top: 93.25%;
+  margin-left: 3%;
+}
+#volume-on {
+  position: absolute;
+  display: none;
+  grid-area: 1/1/2/2;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+}
+#volume-off {
+  position: absolute;
+  display: flex;
+  opacity: 1;
+  pointer-events: none;
+  grid-area: 1/1/2/2;
+  height: 90%;
+  width: 115%;
+  margin-left: 30%;
+  margin-bottom: 5%;
 }

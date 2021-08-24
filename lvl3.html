@@ -57,13 +57,22 @@
             <button onclick="location.href='/lvl3.html'" id="lvlThree">Level 3</button>
           </div>
           <img src="/images/n706297.jpg" alt="Control Panel">
+
+          <div class="volume">
+            <img src="./images/volume-on.png" alt="volume" id="volume-off">
+            <img src="./images/volume-off.png" alt="volume" id="volume-on">
+          </div>
+          <audio id='game-audio' loop = 'loop' type = "audio/mp3">
+          <source src="./images/game.mp3" type = "audio/mp3" loop = 'loop'>
+          </audio>
+
     </article>
     <div id='game-screen'>
       <div id='canvasContain'>
         <canvas id="canvas" tabindex=0 width="640px" height="480px"></canvas>
       </div>
       <div id='messageContain'> 
-        <div class='message' id='start'> <h2>LvL 3</h2> <h1 id="startButton">Start</h1><p>(You Need 900 Points To Move On)</p></div>
+        <div class='message' id='start'> <h2>LvL 3</h2> <h1 id="startButton">Start</h1><p>(You Need 900 Points To Win)</p><p>(WARNING: MUSIC WILL PLAY)</p></div>
         <div class='message' id='niceJob'><h1 id='nice'>You Won!</h1><p id='restart'>restart</p></div>
         <div class='message' id='gameOver'><h1 id='GO'>Game Over</h1><p id='restartTwo'>restart</p></div>
       </div>

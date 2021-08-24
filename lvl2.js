@@ -12,6 +12,10 @@ const StartScreen = document.getElementById('start').style
 const firstHealth = document.getElementById('firstHealth').style
 const gameOverScreen = document.getElementById('gameOver').style
 const niceJobScreen = document.getElementById('niceJob').style
+const volumeOn = document.getElementById(`volume-on`)
+const volumeOff = document.getElementById(`volume-off`)
+const volume = document.getElementsByClassName(`volume`)[0]
+const gameAudio = document.getElementById(`game-audio`)
 const restartButton2 = document.getElementById('restartTwo')
 const startButton = document.getElementById('startButton')
 let scoreDisplay = document.getElementById('leftScreenTop')
@@ -413,6 +417,10 @@ ricochetEffect = (b1, b2) => {
 
 // Initial Game Start Sequence
 const gameInit = () => {
+  volumeOn.style.display = 'flex'
+  volumeOn.style.opacity = 1
+  volumeOff.style.display = 'none'
+  gameAudio.play()
   ballz.length = 0
   StartScreen.display = 'none'
   firstHealth.width = `${600}px`
@@ -524,6 +532,37 @@ canvas.addEventListener('mouseout', function () {
 })
 // Tracks Mouse & Moves Paddle Accordingly
 document.addEventListener('mousemove', mouseMove)
+// Game Audio
+volume.addEventListener(`click`, function () {
+  if (gameAudio.currentTime === 0) {
+    volumeOn.style.display = 'flex'
+    volumeOn.style.opacity = 1
+    volumeOff.style.display = 'none'
+    gameAudio.play()
+  } else {
+    volumeOff.style.display = 'flex'
+    volumeOff.style.opacity = 1
+    volumeOn.style.display = 'none'
+    gameAudio.currentTime = 0
+    gameAudio.pause()
+  }
+})
+volume.addEventListener('mouseover', function () {
+  if (gameAudio.currentTime === 0) {
+    volumeOn.style.display = 'flex'
+    volumeOn.style.opacity = 0.5
+  } else {
+    volumeOff.style.display = 'flex'
+    volumeOff.style.opacity = 0.5
+  }
+})
+volume.addEventListener('mouseout', function () {
+  if (gameAudio.currentTime === 0) {
+    volumeOn.style.display = 'none'
+  } else {
+    volumeOff.style.display = 'none'
+  }
+})
 
 // Animation Function////////////////////////////////////////////////////////////////////////////////////////
 

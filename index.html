@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="./style.css">
   <title>Asteroid Juggler</title>
 </head>
 <body>
@@ -22,7 +22,7 @@
   <section id='fbTwo'>
     <article id='leftArticle'>
         <div id='leftScreenTop'>Your Score: 0</div>
-        <img id="ccc" src="/images/n706396.png" alt="control panel">
+        <img id="ccc" src="./images/n706396.png" alt="control panel">
         <div id='leftScreenBottom'>
           <article id="score">
           <h1>Best Scores</h1>
@@ -56,20 +56,29 @@
             <button id="lvlTwo">Level 2</button>
             <button id="lvlThree">Level 3</button>
           </div>
-          <img src="/images/n706297.jpg" alt="Control Panel">
-    </article>
-    <div id='game-screen'>
+          <img src="./images/n706297.jpg" alt="Control Panel">
+
+          <div class="volume">
+            <img src="./images/volume-on.png" alt="volume" id="volume-off">
+            <img src="./images/volume-off.png" alt="volume" id="volume-on">
+          </div>
+          <audio id='game-audio' loop = 'loop' type = "audio/mp3">
+          <source src="./images/game.mp3" type = "audio/mp3" loop = 'loop'>
+          </audio>
+
+        </article>
+      <div id='game-screen'>
       <div id='canvasContain'>
         <canvas id="canvas" tabindex=0 width="640px" height="480px"></canvas>
       </div>
       <div id='messageContain'> 
-        <div class='message' id='start'> <h2>LvL 1</h2> <h1 id="startButton">Start</h1><p>(You Need 300 Points To Move On)</p></div>
+        <div class='message' id='start'> <h2>LvL 1</h2> <h1 id="startButton">Start</h1><p>(You Need 300 Points To Move On)</p><p>(WARNING: MUSIC WILL PLAY)</p></div>
         <div class='message' id='niceJob'><h1 id='nice'>Nice Job!</h1><p id='moveOn'>Click Level 2 To Move On</p><p id='restart'>restart</p></div>
         <div class='message' id='gameOver'><h1 id='GO'>Game Over</h1><p id='restartTwo'>restart</p></div>
       </div>
     </div>
   </section>
 
-  <script src="/script.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html>
