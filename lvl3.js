@@ -558,25 +558,19 @@ const keyUpHandler = (e) => {
     leftPressed = false
   }
 }
-const touchMove = (e) => {
-  const minX = (window.innerWidth - canvas.clientWidth) / 2
+const touchStart = (e) => {
+  const middle = window.innerWidth / 2
   const touchX = e.targetTouches[0].clientX
-  const touchY = e.targetTouches[0].clientY
-  const maxX = window.innerWidth - minX
-  if (
-    touchY >= window.innerHeight * 0.35 &&
-    touchY <= window.innerHeight * 0.95
-  ) {
-    if (touchX >= minX && touchX <= maxX) {
-      paddleX = touchX - minX - paddleWidth
-    }
-    if (paddleX + paddleWidth * 2 > canvas.width) {
-      paddleX = canvas.width - paddleWidth * 2
-    }
-    if (paddleX < 0) {
-      paddleX = 0
-    }
+  if (touchX < middle) {
+    leftPressed = true
   }
+  if (touchX >= middle) {
+    rightPressed = true
+  }
+}
+const touchEnd = () => {
+  leftPressed = false
+  rightPressed = false
 }
 const mouseMove = (e) => {
   if (mouseover === true) {
@@ -610,12 +604,12 @@ drawPaddle = () => {
 // Moves Paddle According To Key Depression And Release
 paddleMovement = () => {
   if (rightPressed) {
-    paddleX += 10
+    paddleX += 15
     if (paddleX + paddleWidth * 2 > canvas.width) {
       paddleX = canvas.width - paddleWidth * 2
     }
   } else if (leftPressed) {
-    paddleX -= 10
+    paddleX -= 15
     if (paddleX < 0) {
       paddleX = 0
     }
@@ -635,8 +629,8 @@ canvas.addEventListener('mouseout', function () {
 })
 // Tracks Mouse/Touch & Moves Paddle Accordingly
 document.addEventListener('mousemove', mouseMove)
-document.addEventListener('touchmove', touchMove)
-document.addEventListener('touchstart', touchMove)
+document.addEventListener('touchstart', touchStart)
+document.addEventListener('touchend', touchEnd)
 // Game Audio
 volume.addEventListener(`click`, function () {
   if (gameAudio.currentTime === 0) {
