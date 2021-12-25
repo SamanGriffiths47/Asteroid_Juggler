@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="/style.css">
   <title>Asteroid Juggler</title>
 </head>
 <body>
@@ -22,7 +22,7 @@
   <section id='fbTwo'>
     <article id='leftArticle'>
         <div id='leftScreenTop'>Your Score: 0</div>
-        <img id="ccc" src="./images/n706396.png" alt="control panel">
+        <img id="ccc" src="/images/n706396.png" alt="control panel">
         <div id='leftScreenBottom'>
           <article id="score">
           <h1>Best Scores</h1>
@@ -34,13 +34,15 @@
 
     <article id='rightArticle'>
       <div id="rightScreen">
+        <section id='screenSec1'>
+        </section>
         <article id='instructions'>
           <h1>Instructions</h1>
           <h4>Bar Controls:</h6>
             <ul>
-              <li>Use the either the Left Arrow or "A" key to move left.</li>
-              <li>Use either the Right Arrow or "D" key to move Right</li>
-              <li>The mouse can also be used for movement. Simply, hover over the arena and play :)</li>
+              <li>Use the either the Left Arrow or "A" key to move left. (MOBILE: press and hold the left side of your screen)</li>
+              <li>Use either the Right Arrow or "D" key to move Right. (MOBILE: press and hold the right side of your screen)</li>
+              <li>The mouse can also be used for movement. Simply, hover over the arena and play! ☺️</li>
             </ul>
           <h4>Rules:</h6>
           <p>
@@ -52,24 +54,39 @@
           </article>
           </div>
           <div id="lvls">
-            <button onclick="location.href='./index.html'" id="lvlOne">Level 1</button>
-            <button onclick="location.href='./lvl2.html'" id="lvlTwo">Level 2</button>
+            <button onclick="location.href='/index.html'" id="lvlOne">Level 1</button>
+            <button onclick="location.href='/lvl2.html'" id="lvlTwo">Level 2</button>
             <button id="lvlThree">Level 3</button>
           </div>
-          <img src="./images/n706297.jpg" alt="Control Panel">
+          <!-- <img id='controlPanel' src="/images/n706297.jpg" alt="Control Panel"> -->
+          <div id='controlPanel'>
+            <div class="volume">
+              <img src="./images/volume-on.png" alt="volume" id="volume-off">
+              <img src="./images/volume-off.png" alt="volume" id="volume-on">
+            </div>
+          </div>
+          <audio id='game-audio' loop = 'loop' type = "audio/mp3">
+          <source src="./images/game.mp3" type = "audio/mp3" loop = 'loop'>
+          </audio>
+
     </article>
     <div id='game-screen'>
       <div id='canvasContain'>
-        <canvas id="canvas" tabindex=0 width="640px" height="480px"></canvas>
-      </div>
-      <div id='messageContain'> 
-        <div class='message' id='start'> <h2>LvL 2</h2> <h1 id="startButton">Start</h1><p>(You Need 600 Points To Move On)</p></div>
-        <div class='message' id='niceJob'><h1 id='nice'>Nice Job!</h1><p id='moveOn'>Click Level 2 To Move On</p><p id='restart'>restart</p></div>
-        <div class='message' id='gameOver'><h1 id='GO'>Game Over</h1><p id='restartTwo'>restart</p></div>
+        <canvas id="canvas" tabindex=0></canvas>
+        <div id='messageContain'> 
+          <div class='message' id='start'> <h2 class='default' >LvL 2</h2> <h1 id="startButton" class='point'>Start</h1><p class='default'>(You Need 600 Points To Move On)</p><p class='default'>(WARNING: MUSIC WILL PLAY)</p></div>
+          <div class='message' id='niceJob'><h1 class='default' id='nice'>Nice Job!</h1><p id='moveOn' class='default'>Click Level 3 To Move On</p><p id='restart' class='point'>restart</p></div>
+          <div class='message' id='gameOver'><h1 id='GO' class='default'>Game Over</h1><p id='restartTwo' class='point'>restart</p></div>
+        </div>
       </div>
     </div>
   </section>
+  <div id='mobileMsg'>
+    <h3>This Game Can Only Be Played In Landscpe View
+      <br/> 🥺 <br/> 👉👈
+    </h3>
+  </div>
 
-  <script src="./lvl2.js"></script>
+  <script src="/lvl2.js"></script>
 </body>
 </html>

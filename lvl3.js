@@ -1,17 +1,30 @@
+const mobileCheck =
+  /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino|tablet|CrKey\/1.54.250320/i.test(
+    navigator.userAgent
+  ) ||
+  /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(
+    navigator.userAgent.substring(0, 4)
+  )
+
 const ballz = []
 const ballFallz = []
 const redAsteroid = new Image()
-redAsteroid.src = './Asteroids/Asteroid.png'
+redAsteroid.src = '/asteroids/Asteroid.png'
 const scoreNeeded = 900
-const paddleHeight = 10
-const paddleWidth = 150
+const paddleHeight = 3
+const paddleWidth = 70
 const canvas = document.getElementById('canvas')
 const context = canvas.getContext('2d')
 const restartButton = document.getElementById('restart')
 const StartScreen = document.getElementById('start').style
 const firstHealth = document.getElementById('firstHealth').style
 const gameOverScreen = document.getElementById('gameOver').style
+const msgContainer = document.getElementById('messageContain').style
 const niceJobScreen = document.getElementById('niceJob').style
+const volumeOn = document.getElementById(`volume-on`)
+const volumeOff = document.getElementById(`volume-off`)
+const volume = document.getElementsByClassName(`volume`)[0]
+const gameAudio = document.getElementById(`game-audio`)
 const restartButton2 = document.getElementById('restartTwo')
 const startButton = document.getElementById('startButton')
 let scoreDisplay = document.getElementById('leftScreenTop')
@@ -82,9 +95,9 @@ class Vector {
 // Class For The Slowest Ball
 class slowBall {
   constructor() {
-    this.r = 30
+    this.r = 11
     this.position = new Vector(canvas.width / 2, canvas.height - 100)
-    this.mag = 3
+    this.mag = 1.1
     this.vx = this.randomX(this.mag)
     this.vy = this.randomY(this.vx, this.mag)
     this.velocity = new Vector(this.vx, this.vy)
@@ -146,9 +159,9 @@ class slowBall {
 }
 class medBall {
   constructor() {
-    this.r = 20
+    this.r = 11 / 1.5
     this.position = new Vector(canvas.width / 2, canvas.height - 100)
-    this.mag = 4.5
+    this.mag = 1.65
     this.vx = this.randomX(this.mag)
     this.vy = this.randomY(this.vx, this.mag)
     this.velocity = new Vector(this.vx, this.vy)
@@ -210,9 +223,9 @@ class medBall {
 }
 class fastBall {
   constructor() {
-    this.r = 10
+    this.r = 11 / 3
     this.position = new Vector(canvas.width / 2, canvas.height - 100)
-    this.mag = 6
+    this.mag = 2.2
     this.vx = this.randomX(this.mag)
     this.vy = this.randomY(this.vx, this.mag)
     this.velocity = new Vector(this.vx, this.vy)
@@ -351,6 +364,7 @@ const Win = () => {
   updateScore()
   paddleX = canvas.width / 2 - paddleWidth
   gameActive = false
+  msgContainer.display = 'flex'
   niceJobScreen.display = 'flex'
   pitcher2()
 }
@@ -363,6 +377,7 @@ const Lose = () => {
   playerScore = 0
   updateScore()
   paddleX = canvas.width / 2 - paddleWidth
+  msgContainer.display = 'flex'
   gameOverScreen.display = 'flex'
   gameActive = false
   pitcher2()
@@ -378,15 +393,15 @@ const gameOver = () => {
 // Reacts To Turn Losses
 const threeStrikes = () => {
   if (ballFallz.length === 1) {
-    firstHealth.width = `${600 * (2 / 3)}px`
+    firstHealth.width = `${46 * (2 / 3)}vw`
     firstHealth.backgroundColor = 'yellow'
   }
   if (ballFallz.length === 2) {
-    firstHealth.width = `${600 * (1 / 3)}px`
+    firstHealth.width = `${46 * (1 / 3)}vw`
     firstHealth.backgroundColor = 'red'
   }
   if (ballFallz.length >= 3) {
-    firstHealth.width = '10px'
+    firstHealth.width = '1vw'
     firstHealth.backgroundColor = 'red'
     gameOver()
   }
@@ -420,15 +435,15 @@ wallCollision = (i) => {
         ) {
           ballz[i].position.y = canvas.height - paddleHeight - 1 - ballz[i].r
           ballz[i].velocity.y = -ballz[i].velocity.y
-          if (ballz[i].mag === 3) {
+          if (ballz[i].mag === 1.1) {
             playerScore += 10
             updateScore()
           }
-          if (ballz[i].mag === 4.5) {
+          if (ballz[i].mag === 1.65) {
             playerScore += 20
             updateScore()
           }
-          if (ballz[i].mag === 6) {
+          if (ballz[i].mag === 2.2) {
             playerScore += 30
             updateScore()
           }
@@ -481,9 +496,14 @@ ricochetEffect = (b1, b2) => {
 
 // Initial Game Start Sequence
 const gameInit = () => {
+  volumeOn.style.display = 'flex'
+  volumeOn.style.opacity = 1
+  volumeOff.style.display = 'none'
+  gameAudio.play()
   ballz.length = 0
   StartScreen.display = 'none'
-  firstHealth.width = `${600}px`
+  msgContainer.display = 'none'
+  firstHealth.width = `${46}vw`
   firstHealth.backgroundColor = 'green'
   document.getElementById(`stamina`).style.display = 'block'
   gameActive = true
@@ -494,8 +514,9 @@ const gameInit = () => {
 const winRestart = () => {
   ballz.length = 0
   niceJobScreen.display = 'none'
+  msgContainer.display = 'none'
   firstHealth.display = 'block'
-  firstHealth.width = `${600}px`
+  firstHealth.width = `${46}vw`
   firstHealth.backgroundColor = 'green'
   gameActive = true
   ball = new slowBall()
@@ -505,8 +526,9 @@ const winRestart = () => {
 const lossRestart = () => {
   ballz.length = 0
   gameOverScreen.display = 'none'
+  msgContainer.display = 'none'
   firstHealth.display = 'block'
-  firstHealth.width = `${600}px`
+  firstHealth.width = `${46}vw`
   firstHealth.backgroundColor = 'green'
   gameActive = true
   ball = new slowBall()
@@ -536,10 +558,25 @@ const keyUpHandler = (e) => {
     leftPressed = false
   }
 }
+const touchStart = (e) => {
+  const middle = window.innerWidth / 2
+  const touchX = e.targetTouches[0].clientX
+  if (touchX < middle) {
+    leftPressed = true
+  }
+  if (touchX >= middle) {
+    rightPressed = true
+  }
+}
+const touchEnd = () => {
+  leftPressed = false
+  rightPressed = false
+}
 const mouseMove = (e) => {
   if (mouseover === true) {
-    if (e.offsetX > 0 && e.offsetX < canvas.width) {
-      paddleX = e.offsetX - paddleWidth
+    const relOffset = (e.offsetX * 300) / canvas.clientWidth
+    if (relOffset > 0 && relOffset < canvas.width) {
+      paddleX = relOffset - paddleWidth
     }
     if (paddleX + paddleWidth * 2 > canvas.width) {
       paddleX = canvas.width - paddleWidth * 2
@@ -567,12 +604,12 @@ drawPaddle = () => {
 // Moves Paddle According To Key Depression And Release
 paddleMovement = () => {
   if (rightPressed) {
-    paddleX += 10
+    paddleX += 15
     if (paddleX + paddleWidth * 2 > canvas.width) {
       paddleX = canvas.width - paddleWidth * 2
     }
   } else if (leftPressed) {
-    paddleX -= 10
+    paddleX -= 15
     if (paddleX < 0) {
       paddleX = 0
     }
@@ -590,8 +627,41 @@ canvas.addEventListener('mouseover', function () {
 canvas.addEventListener('mouseout', function () {
   mouseover = false
 })
-// Tracks Mouse & Moves Paddle Accordingly
+// Tracks Mouse/Touch & Moves Paddle Accordingly
 document.addEventListener('mousemove', mouseMove)
+document.addEventListener('touchstart', touchStart)
+document.addEventListener('touchend', touchEnd)
+// Game Audio
+volume.addEventListener(`click`, function () {
+  if (gameAudio.currentTime === 0) {
+    volumeOn.style.display = 'flex'
+    volumeOn.style.opacity = 1
+    volumeOff.style.display = 'none'
+    gameAudio.play()
+  } else {
+    volumeOff.style.display = 'flex'
+    volumeOff.style.opacity = 1
+    volumeOn.style.display = 'none'
+    gameAudio.currentTime = 0
+    gameAudio.pause()
+  }
+})
+volume.addEventListener('mouseover', function () {
+  if (gameAudio.currentTime === 0) {
+    volumeOn.style.display = 'flex'
+    volumeOn.style.opacity = 0.5
+  } else {
+    volumeOff.style.display = 'flex'
+    volumeOff.style.opacity = 0.5
+  }
+})
+volume.addEventListener('mouseout', function () {
+  if (gameAudio.currentTime === 0) {
+    volumeOn.style.display = 'none'
+  } else {
+    volumeOff.style.display = 'none'
+  }
+})
 
 // Animation Function////////////////////////////////////////////////////////////////////////////////////////
 
