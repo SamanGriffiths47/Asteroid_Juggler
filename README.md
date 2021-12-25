@@ -4,14 +4,23 @@
 
 <h1><b>Astroid Juggler</b><br></h1>
 <h3>Designed and Executed by Sam'an Griffiths <br> :triangular_ruler: :memo: :computer: :hourglass_flowing_sand:</h3>
-<a href='https://www.linkedin.com/in/saman-griffiths/' target="_blank">Connect On LinkedIn</a> | <a href='https://asteroid_juggler.surge.sh/' target="_blank">Play The Game :joystick:</a> 
+<a href='https://www.linkedin.com/in/saman-griffiths/' target="_blank">Connect On LinkedIn</a> | <a href='https://asteroid-juggler.surge.sh/' target="_blank">Play The Game :joystick:</a> | <a href='https://asteroid_juggler.surge.sh/' target="_blank">Check Out My Portfolio :scroll:</a>
 
 
 ---
 
-<h3>:handshake: Introduction :handshake:</h3>
-<p>Welcome to my world, literally! This game is a, mini, interactive universe, specifically designed for your enjoyment! I created this project with a three piece as classic as Harold's Chicken's, the front end stack HTML, CSS, & Vanilla JavaScript. As you may have gathered, gameplay is heavily collision-based, thus physics, and some of the trigonometry behind it, are integral parts of the logic engine driving this game. The object of which, in layman's terms, is to keep the asteroids off of the ground. Simple, you say? I bet one round of gameplay and a peek at the code behind it will change your mind!</p>
+<h3>:handshake: Overview :handshake:</h3>
+<p align=justify>Welcome to my world, literally! This game is a, mini, interactive universe, specifically designed for your enjoyment! I created this project with a three piece as classic as Harold's Chicken's, the front end stack HTML, CSS, & Vanilla JavaScript. Asteroid Juggler is my second venture into game logic and, by far, my favorite. Now I must say, I was advised by my Instructor that I shouldn't try to learn how to use HTML canvas as we were just starting to learn how to use javascript in collaboration with HTML, and we only had one week to complete and hand in the project... I took this advice as a challenge. I'm proud to say that I successfully learned how to use canvas and create sprites to animate movement in time to successfully turn in the project! This was the hardest coding skill I had ever taught myself up to this point. Keep in mind I that it had been less than a month since I had even started to learn how to write code. Of course, non of that would matter if the game wasn't interesting look at and engaging to play. I'm so glad I took my time, researching and learning the CSS skills to give this game a glossy finish! The object of which, in layman's terms, is to keep the asteroids off of the ground. Simple, you say? I bet one round of gameplay and a peek at the code behind it will change your mind!</p>
+
 <img src="./images/challenge.png" alt="Challenge Accepted" width="40%" height="40%"/>
+
+***
+
+### :smiling_face_with_three_hearts: Favorite Code Block :smiling_face_with_three_hearts:
+
+<img align=center src='./images/collisionCode.png' alt='Wall Collision Code' />
+
+<p align=justify>As you may have gathered, gameplay is heavily collision-based. Thus physics, and some of the trigonometry behind it, are integral parts of the logic engine driving this game. In this code block, I adapt the equations used to describe simple physical collisions to ignore the friction in order to give the asteroids (I call them balls in the code because the original concept was just a ball boucing game) perpetual motion. This was especially fun for me because physics is a topic I'm really passionate about, so I enjoyed delving back into the equations we use to understand the world around us!</p>
 
 <img src='./images/javascript.png' alt='JavaScript'
 height='40px'/>
