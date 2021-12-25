@@ -142,7 +142,7 @@ header {
 }
 #ccc {
   border: 0.4vw inset rgb(27, 27, 27);
-  height: 39%;
+  height: 36%;
   border-radius: 5px;
   width: 88%;
   margin: 0;
@@ -152,7 +152,7 @@ header {
   border: 0.4vw inset rgb(27, 27, 27);
   display: flex;
   justify-self: flex-end;
-  height: 30%;
+  height: 24%;
   width: 81%;
   padding: 1vw;
   margin: 5%;
