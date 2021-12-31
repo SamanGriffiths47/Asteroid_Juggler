@@ -1,5 +1,5 @@
 <div align="center">
-	<img src="./images/gamePlayScreenshot.png" alt="screenshot"
+	<img src="./images/screenshot.png" alt="screenshot"
 	title="Gameplay Screenshot" width="90%" height="90%"/>
 
 <h1><b>Astroid Juggler</b><br></h1>
