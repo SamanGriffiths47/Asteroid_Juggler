@@ -1,6 +1,6 @@
 <div align="center">
-	<img src="./images/gamePlayScreenshot.png" alt="Logos"
-	title="Language Logos" width="90%" height="90%"/>
+	<img src="./images/gamePlayScreenshot.png" alt="screenshot"
+	title="Gameplay Screenshot" width="90%" height="90%"/>
 
 <h1><b>Astroid Juggler</b><br></h1>
 <h3>Designed and Executed by Sam'an Khaliq <br> :triangular_ruler: :memo: :computer: :hourglass_flowing_sand:</h3>
